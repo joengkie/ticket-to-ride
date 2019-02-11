@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<cheatsheet title="Hello World - Introduction to tutorials">
+   <intro>
+    <description>
+    <b>Welcome to the DQ tutorials</b>
+      <br/>
+	  These tutorials will help you learn how to use various steps. More information is available in the User Guide and the video tutorials.
+      <br/><br/>
+      <b>How to work with the tutorials?</b>
+      <br/>
+      To <b>run an example</b>, click the RUN button on the toolbar (click on the plan tab first if the plan is not already selected).
+      <br/><br/>
+      <b>Try also:</b>
+      <br/>
+	  1. Double-click the plan tab to maximize the window.
+	  <br/>
+	  2. Drag and drop a text file from the File Explorer to create a new Text File Reader step.
+	  <br/>
+	  3. Watch how to create this plan in the "Hello World" video.
+	  <br/>
+    </description>
+  </intro>
+  
+  <item title="Folders">
+    <description>
+      Tutorials use <b>files</b> which are located in these folders:
+      <br/>
+		  - Source files are in folder <b>data/in/</b>
+		  <br/>
+		  - Output files are saved to folder <b>data/out/</b>
+		  <br/>
+		  - Dictionary files are in folder <b>data/ext/</b>
+		  <br/><br/>
+		<b>Dictionary files</b> are located in these folders:
+		<br/>
+		  - LKP files are in folder <b>data/ext/lkp/</b>
+		  <br/>
+		  - Plans that build LKP files are in folder <b>data/ext/build/</b>
+		  <br/>
+		  - Source files are in folder <b>data/ext/src/</b>
+		  <br/>	  
+    </description>
+  </item>
+  
+  <item title="Some interesting facts">
+    <description>
+	  <b>Some interesting facts about DEBUG</b>
+	  <br/>
+	  - you can use the DEBUG button on the expression in the property dialog of the step to check quickly how the expression works
+	  <br/>
+	  - you can also use the DEBUG on the step (right-click on the step and choose DEBUG) to check quickly how the step works
+	  <br/><br/><br/>
+	  <b>Some interesting facts about COMMENTS</b>
+	  <br/>
+	  - you can write comments into expressions in the property dialog. Comments have to start with "//"
+	  <br/>
+	  - you can write comments into steps. There are special fields for them.
+	  <br/>
+	  - you can write comments into plans (components). Comments must be written in a special Comment place (colored rectangle).
+      <br/>
+      </description>
+  </item>
+  
+  <item title="Some interesting HOT KEYS">
+    <description>
+      - <b>CTRL+I</b> - list of steps to insert
+      <br/>
+      - <b>CTRL+F11</b> - run a plan/component
+      <br/>
+      - <b>CTRL+"double left mouse click"</b> on the step - open the file which is used in the step
+      </description>
+  </item>
+  </cheatsheet>

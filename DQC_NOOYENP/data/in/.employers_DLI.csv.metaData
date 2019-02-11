@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<settings>
+  <connector>
+    <saved-state stringQualifier="&quot;" lineWithColumnNames="1" recordLength="-1" ignoredRowRegEx="" escapeSequence="" fixedSizes="false" fieldSeparator=";" stringQualifierEscapeSequence="&quot;" numberOfLinesInHeader="1" recordSeparator="\r\n" encoding="UTF-8" numberOfLinesInFooter="0">
+      <columns>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en_US" name="src_first_name" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en_US" name="src_last_name" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en_US" name="src_gender" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en_US" name="src_number_of_empl" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en_US" name="src_year_of_birth" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+      </columns>
+    </saved-state>
+  </connector>
+</settings>

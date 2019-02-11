@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Profiler) --><step id="Profiler" className="com.ataccama.dqc.tasks.profiling.ProfilingAlgorithm" disabled="false" mode="NORMAL">
+		<properties defaultLocale="en_US" outputFile="../data/out/07.02 Party.profile" threaded="true" outputLimit="1000">
+			<domains>
+				<customs/>
+				<datetime active="true" threshold="80"/>
+				<enum active="true" valueCountLimit="20"/>
+				<numeric active="true" threshold="80"/>
+				<pattern patternCountLimit="10" active="true"/>
+				<specval gradientThreshold="100" active="true"/>
+			</domains>
+			<fkAnalysis/>
+			<inputs>
+				<profilingInput name="party" drillThrough="false">
+					<businessRules/>
+					<dataToProfile>
+						<profiledData expression="src_name" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_gender" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_birth_date" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_sin" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_card" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_address" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_email" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_primary_key" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="meta_last_update" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+					</dataToProfile>
+					<dependencies/>
+					<pkAnalysis/>
+					<rollUps/>
+				</profilingInput>
+			</inputs>
+			<masks>
+				<maskCfg name="characters" copyOther="true">
+					<characterGroups>
+						<characterGroup symbol="L" characters="[:letter:]"/>
+						<characterGroup symbol="D" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+				<maskCfg name="words" copyOther="true">
+					<characterGroups>
+						<characterGroup repeatedThreshold="2" symbol="L" repeatedSymbol="W" characters="[:letter:]"/>
+						<characterGroup repeatedThreshold="2" symbol="D" repeatedSymbol="#" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+			</masks>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (party_full) --><step id="party_full" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/party_full.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_birth_date" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_sin" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_card" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_address" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_email" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_primary_key" type="STRING" ignore="false"/>
+				<textReaderColumn name="meta_last_update" type="STRING" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy/MM/dd"/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party_full" endpoint="out"/>
+		<target step="Profiler" endpoint="party"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="312,96,169,74" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Run the plan to create
+the profile or add steps
+from the palette to modify the
+data before it is profiled.</modelComment>
+
+
+
+<modelComment bounds="24,24,457,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to create a profile of data.</modelComment>
+
+
+
+<modelComment bounds="48,240,433,204" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">This plan was created automatically. To create it go to the folder ../data/in/,
+right click on party_full.csv and select &quot;Create profile...&quot; 
+
+You may directly create a profile and view the results, or if you select
+the create a plan option, a file like this one will be created.
+
+Run this plan (it can take about 20 seconds as the file contains more 
+than 130 000 records) and open &quot;07.02 Party.profile&quot;.  
+Things to take a look at:
+- data problems in src_name (see the Frequency tab)
+- different symbols in src_gender (see the Frequency tab)
+- domain analysis for src_birth_date
+- group analysis for src_sin and src_card
+- quantiles analysis for src_sin</modelComment>
+
+</purity-config>

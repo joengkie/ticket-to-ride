@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Birth date scoring) --><step id="Birth date scoring" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/07.09 Birth_date_scoring.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_birth_date"/>
+				<textWriterColumn name="exp"/>
+				<textWriterColumn name="sco"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Scoring) --><step id="Scoring" className="com.ataccama.dqc.tasks.scoring.ScoringEngineStep" disabled="false" mode="NORMAL">
+		<properties defaultScoreColumn="sco" defaultExplainColumn="exp">
+			<rules>
+				<scoringEngineNode condition="src_birth_date" name="Birth day">
+					<cases>
+						<scoringEngineCase description="Empty value" explanation="&#39;EMPTY&#39;" defaultCase="false" value="NULL" score="10000000" correction="0"/>
+						<scoringEngineCase description="Fill value" explanation="&quot;FILL&quot;" defaultCase="true" value="" score="0" correction="0">
+							<childRule condition="toDate(src_birth_date, &quot;yyyy-MM-dd&quot;) is not null" name="Is date?">
+								<cases>
+									<scoringEngineCase description="Date" explanation="&quot;DATE&quot;" defaultCase="false" value="true" score="0" correction="0">
+										<childRule name="44 years old">
+											<cases>
+												<scoringEngineCase description="OLD" defaultCase="false" value="1" score="0" correction="0">
+													<childRule condition="src_birth_date" name="How old">
+														<cases>
+															<scoringEngineCase description="Default date" explanation="&#39;DEFAULT&#39;" defaultCase="false" value="&quot;1900-01-01&quot;" score="1000" correction="1"/>
+															<scoringEngineCase description="Too old date" explanation="&#39;PAST&#39;" defaultCase="false" value="&lt;0001-01-01;1899-12-31&gt;" score="1000" correction="100"/>
+															<scoringEngineCase description="Normal old date" explanation="&#39;OLD&#39;" defaultCase="true" value="" score="10" correction="0"/>
+														</cases>
+													</childRule>
+												</scoringEngineCase>
+												<scoringEngineCase description="NOW" explanation="&#39;NOW&#39;" defaultCase="false" value="2" score="0" correction="0"/>
+												<scoringEngineCase description="YOUNG" defaultCase="false" value="3" score="0" correction="1">
+													<childRule condition="toDate(src_birth_date, &quot;yyyy-MM-dd&quot;)&gt;today()" name="How young?">
+														<cases>
+															<scoringEngineCase description="Future date" explanation="&#39;FUTURE&#39;" defaultCase="false" value="true" score="1000" correction="10"/>
+															<scoringEngineCase description="Under 44 years" explanation="&#39;YOUNG&#39;" defaultCase="true" value="" score="1" correction="10"/>
+														</cases>
+													</childRule>
+												</scoringEngineCase>
+											</cases>
+											<condition>$date:=dateAdd(toDate(src_birth_date, &quot;yyyy-MM-dd&quot;), 44, &quot;YEAR&quot;);
+
+case(
+	$date &lt; today(), 1,
+	$date = today(), 2,
+	$date &gt; today(), 3
+	)</condition>
+										</childRule>
+									</scoringEngineCase>
+									<scoringEngineCase description="Not date" explanation="&#39;NOT_DATE&#39;" defaultCase="false" value="false" score="10000" correction="0">
+										<childRule condition="upper(src_birth_date)" name="Is default text?">
+											<cases>
+												<scoringEngineCase description="Default text" explanation="&quot;DEFAULT_TEXT&quot;" defaultCase="false" value="&quot;N/A&quot;,&quot;NULL&quot;" score="10" correction="1"/>
+												<scoringEngineCase description="Unknow value" explanation="&quot;UNKNOWN&quot;" defaultCase="true" value="" score="100" correction="10"/>
+											</cases>
+										</childRule>
+									</scoringEngineCase>
+								</cases>
+							</childRule>
+						</scoringEngineCase>
+					</cases>
+				</scoringEngineNode>
+			</rules>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Scoring" endpoint="out"/>
+		<target step="Birth date scoring" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (party_full) --><step id="party_full" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/party_full.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_birth_date" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_sin" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_card" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_address" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_email" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_primary_key" type="STRING" ignore="false"/>
+				<textReaderColumn name="meta_last_update" type="DAY" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy/MM/dd"/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="exp" type="STRING"/>
+				<shadowColumnDef name="sco" type="INTEGER"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party_full" endpoint="out"/>
+		<target step="Scoring" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,601,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to score and explain data quality by using the Simple Scoring step,
+in which business rules and corresponding scores are defined. This step is more complicated than the Simple Scoring step.</modelComment>
+
+
+
+<modelComment bounds="216,96,385,265" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">There are a few business rules in this example:
+  1. src_birth_date is empty
+  2. src_birth_date is filled
+  3. src_birth_date is not in the &#39;YYYY-MM-DD&#39; date format
+	- src_birth_date is text like &#39;N/A&#39; or &#39;NULL&#39;
+	- src_birth_date has unknown value
+  4. src_birth_date is in the &#39;YYYY-MM-DD&#39; date format
+	- src_birth_date is a date 44 years from now (in the future)
+	- src_birth_date is &#39;1900-01-01&#39;
+	- src_birth_date is in the past (before &#39;1900-01-01&#39;)
+ 	- src_birth_date is after &#39;1900-01-01&#39; but no more than 44
+	   years in the past from today
+	- src_birth_date is less than 44 years in the past
+          but not in the future
+	- src_birth_date is in the future (a date after today)</modelComment>
+
+</purity-config>

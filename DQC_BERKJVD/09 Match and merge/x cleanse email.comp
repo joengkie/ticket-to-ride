@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<component-id>C6</component-id>
+	<icon type="5">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</icon>
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns for email) --><step id="Add columns for email" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="std_email" type="STRING"/>
+				<addedColumn name="out_email" type="STRING"/>
+				<addedColumn name="exp_email" type="STRING"/>
+				<addedColumn expression="0" name="sco_email" type="INTEGER"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Add columns for email" endpoint="out"/>
+		<target step="Validate Email" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Email out) --><step id="Email out" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="std_email" column="out_email">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Email out" endpoint="out"/>
+		<target step="Remove columns" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove columns) --><step id="Remove columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns/>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,384,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove columns" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Validate Email) --><step id="Validate Email" className="com.ataccama.dqc.tasks.clean.ValidateEmailAlgorithm" disabled="false" mode="NORMAL">
+		<properties outEmail="std_email" tldLookupFileName="../data/ext/lkp/email_tld.lkp" in="src_email">
+			<scorer explanationColumn="exp_email" scoreColumn="sco_email">
+				<scoringEntries>
+					<scoringEntry score="10000" explainAs="EML_NULL" explain="true" key="EML_NULL"/>
+					<scoringEntry score="10000" explainAs="EML_ADDRESS" explain="true" key="EML_ADDRESS"/>
+					<scoringEntry score="10000" explainAs="EML_TLD" explain="true" key="EML_TLD"/>
+					<scoringEntry score="10000" explainAs="EML_AMBIGUOUS_DOMAIN" explain="true" key="EML_AMBIGUOUS_DOMAIN"/>
+				</scoringEntries>
+			</scorer>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Validate Email" endpoint="out"/>
+		<target step="Email out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="src_email" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Add columns for email" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints bounds="48,456,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="24,24,649,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Component Goals
+The goal of this component is to cleanse email addresses to be used in 09.01 Match and merge tutorial.</modelComment>
+
+
+
+<modelComment bounds="240,168,468,193" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Cleansing is done by a special Validate ID Card step.
+
+Column prefixes:
+out_ ... used for creating Golden records
+std_ ... correct values - found in the lookup files or validated by business rules
+src_ ... original values - never changed
+sco_... (integer) measure of attribute quality
+     0 ... correct at input
+     &lt;10000 ... corrected
+     &gt;=10000 ... invalid or null, cannot be used for matching or output values</modelComment>
+
+</purity-config>

@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Matching Values) --><step id="Matching Values" className="com.ataccama.dqc.tasks.clean.MatchingValues" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<matchingColumn expression="src_full_name" name="matching_full_name">
+					<generator doRemoveRepeatedChars="false" doSqueezeWS="true" supportedCharacters=" [:letter:]" doRemoveDia="false" doUpperCase="true">
+						<comm:comment>notice the space in Supported Character parameter</comm:comment>
+					</generator>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="MV_CHANGED" explain="false" key="MV_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</matchingColumn>
+			</columns>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Matching Values" endpoint="out"/>
+		<target step="Results - MV" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Results - MV) --><step id="Results - MV" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.03 Matching_Values.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_full_name"/>
+				<textWriterColumn name="matching_full_name"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (names) --><step id="names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_full_name" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="matching_full_name" type="STRING"/>
+				<shadowColumnDef name="exp" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names" endpoint="out"/>
+		<target step="Matching Values" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,433,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use the Matching Values step to create matching values. </modelComment>
+
+
+
+<modelComment bounds="216,120,291,118" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Values in the Matching_full_name column are 
+created from src_full_name by transformation
+to upper case, squeezing white spaces and 
+supporting only letters. This means that 
+the result will be a sequence of words in upper
+case, separated by single spaces.</modelComment>
+
+
+
+<modelComment bounds="48,312,409,35" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">The Matching Values step is usually used before matching (the Unification step).</modelComment>
+
+</purity-config>

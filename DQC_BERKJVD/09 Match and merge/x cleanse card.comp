@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<component-id>C5</component-id>
+	<icon type="5">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</icon>
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns for card) --><step id="Add columns for card" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="out_card" type="STRING"/>
+				<addedColumn name="std_card" type="STRING"/>
+				<addedColumn name="exp_card" type="STRING"/>
+				<addedColumn name="sco_card" type="INTEGER"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Add columns for card" endpoint="out"/>
+		<target step="Card" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Card) --><step id="Card" className="com.ataccama.dqc.tasks.clean.ValidateIdCardAlgorithm" disabled="false" mode="NORMAL">
+		<properties omitInvalidIC="true" cn="src_card" cnOut="std_card">
+			<scorer explanationColumn="exp_card" scoreColumn="sco_card">
+				<scoringEntries>
+					<scoringEntry score="10000" explainAs="CARD_NULL" explain="true" key="VIC_NULL"/>
+					<scoringEntry score="10000" explainAs="CARD_BAD_FORMAT" explain="true" key="VIC_BAD_FORMAT"/>
+					<scoringEntry score="10000" explainAs="CARD_INVALID" explain="true" key="VIC_INVALID"/>
+					<scoringEntry score="10000" explainAs="CARD_INVALID_CHECK" explain="true" key="VIC_INVALID_CHECK"/>
+					<scoringEntry score="10000" explainAs="CARD_EMPTY_ISSUER" explain="true" key="VIC_EMPTY_ISSUER"/>
+				</scoringEntries>
+			</scorer>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Card" endpoint="out"/>
+		<target step="Card out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Card out) --><step id="Card out" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="std_card" column="out_card">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Card out" endpoint="out"/>
+		<target step="Remove columns" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove columns) --><step id="Remove columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns/>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,384,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove columns" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="src_card" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Add columns for card" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints bounds="48,456,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="24,24,649,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Component Goals
+The goal of this component is to cleanse credit card numbers to be used in 09.01 Match and merge tutorial.</modelComment>
+
+
+
+<modelComment bounds="240,168,468,193" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Cleansing is done by a special Validate ID Card step.
+
+Column prefixes:
+out_ ... used for creating Golden records
+std_ ... correct values - found in the lookup files or validated by business rules
+src_ ... original values - never changed
+sco_... (integer) measure of attribute quality
+     0 ... correct at input
+     &lt;10000 ... corrected
+     &gt;=10000 ... invalid or null, cannot be used for matching or output values</modelComment>
+
+</purity-config>

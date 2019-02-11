@@ -1,0 +1,364 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Union) --><step id="Union" className="com.ataccama.dqc.tasks.flow.Union" disabled="false" mode="NORMAL">
+		<properties>
+			<columnMappings>
+				<columnMapping in_b="Title " dest="Title" in_a="Title"/>
+			</columnMappings>
+		</properties>
+		<visual-constraints bounds="480,288,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Union" endpoint="out"/>
+		<target step="Union 2" endpoint="in_a"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="503,360"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Union 2) --><step id="Union 2" className="com.ataccama.dqc.tasks.flow.Union" disabled="false" mode="NORMAL">
+		<properties>
+			<columnMappings>
+				<columnMapping in_b="Title" dest="Title" in_a="Title"/>
+			</columnMappings>
+		</properties>
+		<visual-constraints bounds="576,360,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Union 2" endpoint="out"/>
+		<target step="titles.lkp" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (first_names) --><step id="first_names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/first_names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="first_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="frequency" type="FLOAT" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="72,216,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="first_names" endpoint="out"/>
+		<target step="first_names.lkp" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (first_names.lkp) --><step id="first_names.lkp" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="true" compressed="false" duplicities="ACCEPT" bestDistanceIndex="true" fileName="../lkp/first_names.lkp" bidirectApproximativeIndex="false" key="first_name">
+			<additionalColumns/>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="true" supportedCharacters="[:letter:]" doRemoveDia="true" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="72,288,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (first_names_gender) --><step id="first_names_gender" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/first_names_gender.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="240,216,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="first_names_gender" endpoint="out"/>
+		<target step="first_names_gender.lkp" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (first_names_gender.lkp) --><step id="first_names_gender.lkp" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="true" compressed="false" duplicities="ACCEPT" bestDistanceIndex="true" fileName="../lkp/first_names_gender.lkp" bidirectApproximativeIndex="false" key="src_name">
+			<additionalColumns>
+				<columnExprDef expression="src_name" name="std_first_name"/>
+				<columnExprDef expression="src_gender" name="std_gender"/>
+			</additionalColumns>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:]" doRemoveDia="true" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="240,288,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (last_name_prefixes) --><step id="last_name_prefixes" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/last_name_prefixes.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="prefix" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="264,456,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="last_name_prefixes" endpoint="out"/>
+		<target step="last_names_prefix.lkp" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (last_names) --><step id="last_names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/last_names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="freq" type="FLOAT" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="72,456,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="last_names" endpoint="out"/>
+		<target step="last_names.lkp" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (last_names.lkp) --><step id="last_names.lkp" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="true" compressed="false" duplicities="ACCEPT" bestDistanceIndex="true" fileName="../lkp/last_names.lkp" bidirectApproximativeIndex="false" key="last_name">
+			<additionalColumns/>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:]" doRemoveDia="true" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="72,528,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (last_names_prefix.lkp) --><step id="last_names_prefix.lkp" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="false" compressed="false" duplicities="FIRST" bestDistanceIndex="true" fileName="../lkp/last_names_prefix.lkp" bidirectApproximativeIndex="false" key="prefix">
+			<additionalColumns/>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:]" doRemoveDia="true" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="264,528,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (titles.lkp) --><step id="titles.lkp" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="false" compressed="false" duplicities="ACCEPT" bestDistanceIndex="false" fileName="../lkp/titles.lkp" bidirectApproximativeIndex="false" key="Title">
+			<additionalColumns>
+				<columnExprDef expression="Title" name="title"/>
+			</additionalColumns>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:] .-/" doRemoveDia="true" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="576,432,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (titles_academic) --><step id="titles_academic" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/titles_academic.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="Title" type="STRING" ignore="false"/>
+				<textReaderColumn name="Full" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="576,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="titles_academic" endpoint="out"/>
+		<target step="Union" endpoint="in_b"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (titles_military) --><step id="titles_military" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/titles_military.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="Title" type="STRING" ignore="false"/>
+				<textReaderColumn name="Full" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="648,288,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="titles_military" endpoint="out"/>
+		<target step="Union 2" endpoint="in_b"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="671,360"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (titles_social) --><step id="titles_social" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/titles_social.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="Title" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="456,192,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="titles_social" endpoint="out"/>
+		<target step="Union" endpoint="in_a"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,721,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to generate LKP files with information about names and titles.</modelComment>
+
+
+
+<modelComment bounds="432,96,337,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate an LKP file for titles
+An aggregation of social, academic and military titles is used as input in this example.</modelComment>
+
+
+
+<modelComment bounds="240,384,145,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate an LKP file for
+ last name prefixes</modelComment>
+
+
+
+<modelComment bounds="48,384,145,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate an LKP file
+ for last names</modelComment>
+
+
+
+<modelComment bounds="48,96,289,100" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate 2 FirstName LKP files:
+- one for Name Parsing
+- one for Gender update
+
+The goal might be accomplished by a single one, but in real
+projects the files may be different.</modelComment>
+
+</purity-config>

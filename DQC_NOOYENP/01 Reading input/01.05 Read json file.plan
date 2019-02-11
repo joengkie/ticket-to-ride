@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Address) --><step id="Address" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.05 Address.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="264,216,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Json Reader) --><step id="Json Reader" className="com.ataccama.dqc.tasks.io.json.reader.JsonReader" disabled="false" mode="NORMAL">
+		<properties fileName="../data/in/party.json" encoding="UTF-8">
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" class="com.ataccama.dqc.tasks.io.text.read.TextReaderDataFormatParameters" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<dataStreams>
+				<jsonStreamConfig name="party" path="$">
+					<attributes>
+						<attribute name="id" path="ID" type="INTEGER"/>
+						<attribute name="firstname" path="firstName" type="STRING"/>
+						<attribute name="lastname" path="lastName" type="STRING"/>
+						<attribute name="isAlive" path="isAlive" type="BOOLEAN"/>
+						<attribute name="age" path="age" type="INTEGER"/>
+						<attribute name="height_cm" path="height_cm" type="FLOAT"/>
+						<attribute name="address_city" path="address.city" type="STRING">
+							<comm:comment>child operator</comm:comment>
+						</attribute>
+					</attributes>
+					<dataStreams>
+						<jsonStreamConfig name="address" path="address">
+							<attributes>
+								<attribute name="streetAddress" path="streetAddress" type="STRING"/>
+								<attribute name="city" path="city" type="STRING"/>
+								<attribute name="state" path="state" type="STRING"/>
+								<attribute name="postalCode" path="postalCode" type="STRING"/>
+							</attributes>
+							<dataStreams/>
+							<shadowColumns>
+								<shadowColumnDef name="party_ID" defaultExpression="party.id" type="INTEGER"/>
+							</shadowColumns>
+							<comm:comment>In substreams, we can refer to the parent attributes using shadow columns. 
+
+For example, if we want person ID for joining persons and addresses, we would use &quot;person.id&quot; attribute</comm:comment>
+						</jsonStreamConfig>
+						<jsonStreamConfig name="phoneNumbers" path="phoneNumbers">
+							<attributes>
+								<attribute name="type" path="type" type="STRING"/>
+								<attribute name="number" path="number" type="STRING"/>
+							</attributes>
+							<dataStreams/>
+							<shadowColumns>
+								<shadowColumnDef name="party_ID" defaultExpression="party.id" type="INTEGER"/>
+							</shadowColumns>
+							<comm:comment>In substreams, we can refer to the parent attributes using shadow columns. 
+
+For example, if we want person ID for joining persons and addresses, we would use &quot;person.id&quot; attribute</comm:comment>
+						</jsonStreamConfig>
+						<comm:comment>For complex subentities (json array or object), use data substreams.</comm:comment>
+					</dataStreams>
+					<shadowColumns/>
+					<comm:comment>We use symbol &#39;$&#39;, because we start from root element.</comm:comment>
+				</jsonStreamConfig>
+			</dataStreams>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Json Reader" endpoint="address"/>
+		<target step="Address" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Json Reader" endpoint="party"/>
+		<target step="Party" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Json Reader" endpoint="phoneNumbers"/>
+		<target step="Phone" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Party) --><step id="Party" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.05 Party.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="264,456,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Phone) --><step id="Phone" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.05 Phone.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="264,336,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<modelComment bounds="44,44,605,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read json file representing person (name, address, ..)</modelComment>
+
+
+
+<modelComment bounds="432,120,228,422" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">{
+  &quot;firstName&quot;: &quot;John&quot;,
+  &quot;lastName&quot;: &quot;Smith&quot;,
+  &quot;isAlive&quot;: true,
+  &quot;age&quot;: 25,
+  &quot;height_cm&quot;: 167.6,
+  &quot;address&quot;: {
+    &quot;streetAddress&quot;: &quot;21 2nd Street&quot;,
+    &quot;city&quot;: &quot;New York&quot;,
+    &quot;state&quot;: &quot;NY&quot;,
+    &quot;postalCode&quot;: &quot;10021-3100&quot;
+  },
+  &quot;phoneNumbers&quot;: [
+    {
+      &quot;type&quot;: &quot;home&quot;,
+      &quot;number&quot;: &quot;212 555-1234&quot;
+    },
+    {
+      &quot;type&quot;: &quot;office&quot;,
+      &quot;number&quot;: &quot;646 555-4567&quot;
+    }
+  ],
+  &quot;children&quot;: [],
+  &quot;spouse&quot;: null
+}</modelComment>
+
+
+
+<modelComment bounds="672,120,193,217" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">On the left, there is content of the input file.
+It describes a person in json format.
+
+If you are familiar with xpath for xml, here is
+example of JsonPath for json format:
+
+The following XPath expression
+
+/store/book/title
+
+would look like
+
+$.store.book.title</modelComment>
+
+</purity-config>

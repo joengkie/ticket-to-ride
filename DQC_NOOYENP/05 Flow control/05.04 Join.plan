@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Join) --><step id="Join" className="com.ataccama.dqc.tasks.merge.Join" disabled="false" mode="NORMAL">
+		<properties leftKey="first_name" matchStrategy="MERGE" rightKey="last_name" joinType="INNER">
+			<columnDefinitions>
+				<columnDefinition expression="in_left.first_name " name="Name"/>
+				<columnDefinition expression="in_left.frequency" name="freq_first_name"/>
+				<columnDefinition expression="in_right.frequency" name="freq_last_name"/>
+			</columnDefinitions>
+		</properties>
+		<visual-constraints bounds="72,336,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Join" endpoint="out"/>
+		<target step="Join name" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Join name) --><step id="Join name" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/05.04 Join_name.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="72,408,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (first_names) --><step id="first_names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/ext/src/first_names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="first_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="frequency" type="FLOAT" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,144,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="first_names" endpoint="out"/>
+		<target step="Join" endpoint="in_left"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (last_names) --><step id="last_names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/ext/src/last_names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="frequency" type="FLOAT" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="96,216,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="last_names" endpoint="out"/>
+		<target step="Join" endpoint="in_right"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="165,240"/>
+				<point location="165,336"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="216,288,259,150" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Join step reads a list of first names
+and their frequencies (first_names) and
+a list of last names and their frequencies 
+(last_names).
+Then it uses INNER Join to join both 
+data flows. 
+
+The Join step works like JOIN in SQL.</modelComment>
+
+
+
+<modelComment bounds="24,24,437,97" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read two text files containing first and last names 
+with corresponding frequencies of occurrence and join matching first and
+last names into one list, displaying frequency of occurrence as the first name 
+and as the last name. This is achieved using the Join step.</modelComment>
+
+</purity-config>

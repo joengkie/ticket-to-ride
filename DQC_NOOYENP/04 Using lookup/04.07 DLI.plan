@@ -1,0 +1,282 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (DLI out all) --><step id="DLI out all" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.07 DLI_out.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_first_name"/>
+				<textWriterColumn name="src_last_name"/>
+				<textWriterColumn name="src_gender"/>
+				<textWriterColumn name="src_number_of_empl"/>
+				<textWriterColumn name="src_year_of_birth"/>
+				<textWriterColumn name="classification_best_score"/>
+				<textWriterColumn name="classification_count_best"/>
+				<textWriterColumn name="proposal_count"/>
+				<textWriterColumn name="vectore_name"/>
+				<textWriterColumn name="score"/>
+				<textWriterColumn name="expl"/>
+				<textWriterColumn name="comp_pattern"/>
+				<textWriterColumn name="pattern"/>
+				<textWriterColumn name="std_first_name"/>
+				<textWriterColumn name="std_last_name"/>
+				<textWriterColumn name="std_gender"/>
+				<textWriterColumn name="std_number_of_empl"/>
+				<textWriterColumn name="std_year_of_birth"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,336,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (DLI out proposals) --><step id="DLI out proposals" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.07 DLI_out_prop.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_first_name"/>
+				<textWriterColumn name="src_last_name"/>
+				<textWriterColumn name="src_gender"/>
+				<textWriterColumn name="src_number_of_empl"/>
+				<textWriterColumn name="src_year_of_birth"/>
+				<textWriterColumn name="classification_best_score"/>
+				<textWriterColumn name="classification_count_best"/>
+				<textWriterColumn name="proposal_count"/>
+				<textWriterColumn name="vectore_name"/>
+				<textWriterColumn name="score"/>
+				<textWriterColumn name="expl"/>
+				<textWriterColumn name="comp_pattern"/>
+				<textWriterColumn name="pattern"/>
+				<textWriterColumn name="std_first_name"/>
+				<textWriterColumn name="std_last_name"/>
+				<textWriterColumn name="std_gender"/>
+				<textWriterColumn name="std_number_of_empl"/>
+				<textWriterColumn name="std_year_of_birth"/>
+				<textWriterColumn name="rd"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="96,264,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Dictionary Lookup Identifier) --><step id="Dictionary Lookup Identifier" className="com.ataccama.dqc.tasks.addresses.dictionary.DictionaryLookupIdentifier" disabled="false" mode="NORMAL">
+		<properties explanation="expl" score="score" outPattern="pattern" maxScoreToAcceptVector="3" referenceData="../data/ext/lkp/employers_DLB" outComponentPattern="comp_pattern" outSupportingVectorName="vectore_name" outProposalCount="proposal_count" recordDescriptorColumn="rd">
+			<componentOutputMapping>
+				<componentMapping column="std_first_name" componentId="first_name"/>
+				<componentMapping column="std_last_name" componentId="last_name"/>
+				<componentMapping column="std_gender" componentId="gender"/>
+				<componentMapping column="std_number_of_empl" componentId="number_of_empl"/>
+				<componentMapping column="std_year_of_birth" componentId="year_of_birth"/>
+				<comm:comment>Names of the output columns into which the resulting Components (result of best Proposal) are given.</comm:comment>
+			</componentOutputMapping>
+			<components>
+				<entityComponentUsage id="first_name" input="true" approximativeInputErrorLimit="0" approximativeExplainErrorRatio="1.0" mapToNumber="false" approximativeInputErrorRatio="1.0" approximativeExplainErrorLimit="0">
+					<comm:comment>No approximations - it must be exactly the same to identify the vector</comm:comment>
+				</entityComponentUsage>
+				<entityComponentUsage id="last_name" input="true" approximativeInputErrorLimit="0" approximativeExplainErrorRatio="1.0" mapToNumber="false" approximativeInputErrorRatio="1.0" approximativeExplainErrorLimit="1">
+					<comm:comment>Explanatory approximation - vector to not identified, but is used then</comm:comment>
+				</entityComponentUsage>
+				<entityComponentUsage id="gender" input="true" approximativeInputErrorLimit="1" approximativeExplainErrorRatio="1.0" mapToNumber="false" approximativeInputErrorRatio="1.0" approximativeExplainErrorLimit="0">
+					<comm:comment>Input approximation - the vector can be identified, but there is no explanation-&gt; Unexplained text</comm:comment>
+				</entityComponentUsage>
+				<entityComponentUsage id="number_of_empl" input="true" approximativeInputErrorLimit="0" approximativeExplainErrorRatio="1.0" mapToNumber="false" approximativeInputErrorRatio="1.0" approximativeExplainErrorLimit="0">
+					<comm:comment>No approximations - it must be exactly the same to identify the vector</comm:comment>
+				</entityComponentUsage>
+				<entityComponentUsage id="year_of_birth" input="true" approximativeInputErrorLimit="1" approximativeExplainErrorRatio="1.0" mapToNumber="true" approximativeInputErrorRatio="1.0" approximativeExplainErrorLimit="1">
+					<comm:comment>Explanatory and the input approximations -vector can be identify and also it will be explained</comm:comment>
+				</entityComponentUsage>
+			</components>
+			<expertSettings advancedScoring="true" approximativeSearchImmediately="false">
+				<evaluatorDefinition class="com.ataccama.dqc.tasks.addresses.dictionary.evaluation.SingleComponentElementEvaluatorDefinition"/>
+				<inputSearchMethod class="com.ataccama.dqc.tasks.addresses.dictionary.model.searching.SingleComponentElementSearchMethod"/>
+			</expertSettings>
+			<inputLayout>
+				<elements>
+					<inputElement expression="src_first_name" component="first_name" name="first_name"/>
+					<inputElement expression="src_last_name" component="last_name" name="last_name"/>
+					<inputElement expression="src_gender" component="gender" name="gender"/>
+					<inputElement expression="src_number_of_empl" component="number_of_empl" name="number_of_empl"/>
+					<inputElement expression="src_year_of_birth" component="year_of_birth" name="year_of_birth"/>
+				</elements>
+				<comm:comment>Input columns are mapped to the component column names. &quot;Name&quot; is for use in scoring.</comm:comment>
+			</inputLayout>
+			<limitOutputProposals>
+				<proposalCount limit="2" when="src_year_of_birth==&#39;1900&#39;"/>
+				<comm:comment>If the conditions are fulfilled, the end number of proposals is limited.</comm:comment>
+			</limitOutputProposals>
+			<limitRatedProposals/>
+			<ratings>
+				<ratingCase classificationColumn="classification_best_score">
+					<ratings>
+						<rating rate="1">
+							<when>scoring.best_score &lt;= 25
+</when>
+							<comm:comment>under 25</comm:comment>
+						</rating>
+						<rating rate="31" when="scoring.best_score =31">
+							<comm:comment>if condition is fulfill another conditions aren&#39;t evaluate</comm:comment>
+						</rating>
+						<rating rate="2" when="scoring.best_score &gt; 25">
+							<comm:comment>over 25 (except 31)</comm:comment>
+						</rating>
+						<rating rate="0" when="scoring.best_score is null">
+							<comm:comment>no best score exists</comm:comment>
+						</rating>
+					</ratings>
+					<comm:comment>The classification is divided according to the size of the best score.</comm:comment>
+				</ratingCase>
+				<ratingCase classificationColumn="classification_count_best">
+					<ratings>
+						<rating rate="1" when="scoring.count_best == 1">
+							<comm:comment>only one proposal with best score</comm:comment>
+						</rating>
+						<rating rate="2" when="scoring.count_best &gt; 1">
+							<comm:comment>two and more proposals with best score and to output is give anyone</comm:comment>
+						</rating>
+						<rating rate="3" when="scoring.count_best == 0">
+							<comm:comment>none proposals with best score not exists and to output is give nothing</comm:comment>
+						</rating>
+					</ratings>
+					<comm:comment>The classification is divided according to the count of proposals with the best score.</comm:comment>
+				</ratingCase>
+			</ratings>
+			<scoring>
+				<scoring when="length(unexpl.total) &gt; 0" explanation="&#39;UNEXPL_&#39; + upper(unexpl.total)" score="length(unexpl.total)+10">
+					<comm:comment>Unexplained text</comm:comment>
+				</scoring>
+				<scoring when="expl.last_name == const.found " explanation="&#39;LNAME_FOUND&#39;" score="0"/>
+				<scoring when="expl.first_name == const.found " explanation="&#39;FNAME_FOUND&#39;" score="0"/>
+				<scoring when="expl.gender == const.found " explanation="&#39;GENDER_FOUND&#39;" score="0"/>
+				<scoring when="expl.number_of_empl == const.found " explanation="&#39;NUMEMPL_FOUND&#39;" score="0"/>
+				<scoring when="expl.year_of_birth == const.found " explanation="&#39;YEARBIRTH_FOUND&#39;" score="0"/>
+				<scoring when="expl.last_name == const.not_defined" explanation="&#39;LNAME_NOT_DEFINED&#39;" score="15">
+					<comm:comment>Not null but of unexpected values</comm:comment>
+				</scoring>
+				<scoring when="expl.first_name == const.not_defined" explanation="&#39;FNAME_NOT_DEFINED&#39;" score="15"/>
+				<scoring when="expl.gender == const.not_defined" explanation="&#39;GENDER_NOT_DEFINED&#39;" score="0"/>
+				<scoring when="expl.number_of_empl == const.not_defined" explanation="&#39;NUMEMPL_NOT_DEFINED&#39;" score="0"/>
+				<scoring when="expl.year_of_birth == const.not_defined" explanation="&#39;YEARBIRTH_NOT_DEFINED&#39;" score="0"/>
+				<scoring when="expl.last_name == const.approx" explanation="&#39;LNAME_APPROX&#39;+&#39;_&#39;+toString(e.last_name)+&#39;_&#39;+toString(z.last_name)+&#39;_&#39;+toString(d.last_name)+&#39;_&#39;+toString(x.last_name)" score="z.last_name+d.last_name+x.last_name+e.last_name">
+					<comm:comment>when the explanatory approximations are set</comm:comment>
+				</scoring>
+				<scoring when="expl.first_name == const.approx" explanation="&#39;FNAME_APPROX&#39;+&#39;_&#39;+toString(e.first_name)+&#39;_&#39;+toString(z.first_name)+&#39;_&#39;+toString(d.first_name)+&#39;_&#39;+toString(x.first_name)" score="z.first_name+d.first_name+x.first_name+e.first_name"/>
+				<scoring when="expl.gender == const.approx" explanation="&#39;GENDER_APPROX&#39;+&#39;_&#39;+toString(e.gender)+&#39;_&#39;+toString(z.gender)+&#39;_&#39;+toString(d.gender)+&#39;_&#39;+toString(x.gender)" score="0"/>
+				<scoring when="expl.number_of_empl == const.approx" explanation="&#39;NUMEMPL_APPROX&#39;+&#39;_&#39;+toString(e.number_of_empl)+&#39;_&#39;+toString(z.number_of_empl)+&#39;_&#39;+toString(d.number_of_empl)+&#39;_&#39;+toString(x.number_of_empl)" score="0"/>
+				<scoring when="expl.year_of_birth == const.approx" explanation="&#39;YEARBIRTH_APPROX&#39;+&#39;_&#39;+toString(e.year_of_birth)+&#39;_&#39;+toString(z.year_of_birth)+&#39;_&#39;+toString(d.year_of_birth)+&#39;_&#39;+toString(x.year_of_birth)" score="0"/>
+				<scoring when="expl.last_name == const.missing" explanation="&#39;LNAME_MISSING&#39;" score="10">
+					<comm:comment>supposed to be filled but is not</comm:comment>
+				</scoring>
+				<scoring when="expl.first_name == const.missing" explanation="&#39;FNAME_MISSING&#39;" score="10"/>
+				<scoring when="expl.gender == const.missing" explanation="&#39;GENDER_MISSING&#39;" score="0"/>
+				<scoring when="expl.number_of_empl == const.missing" explanation="&#39;NUMEMPL_MISSING&#39;" score="0"/>
+				<scoring when="expl.year_of_birth == const.missing" explanation="&#39;YEARBIRTH_MISSING&#39;" score="0"/>
+			</scoring>
+			<supportingVectorCases>
+				<supportingVectorCase when="getProposalCount(&#39;fname_gender&#39;,src_first_name,&#39;M&#39;)&gt;0" name="lname_yearbirth">
+					<comm:comment>- depends on the order 
+- comes from the top
+- the condition is fullfilled if there&#39;s at least one proposal, where the combination of name and gender &quot;M&quot; is found in the vector &quot;fname_gender</comm:comment>
+				</supportingVectorCase>
+				<supportingVectorCase maxScoreToAccept="3" maxProposalCount="1" when="true" name="fname_lname_numempl"/>
+				<supportingVectorCase maxScoreToAccept="20" maxProposalCount="4" when="true" name="fname_gender"/>
+				<supportingVectorCase maxScoreToAccept="5" when="true" name="fname_lname"/>
+			</supportingVectorCases>
+		</properties>
+		<visual-constraints bounds="72,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Dictionary Lookup Identifier" endpoint="out"/>
+		<target step="DLI out all" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Dictionary Lookup Identifier" endpoint="outProposals"/>
+		<target step="DLI out proposals" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (employers_DLI) --><step id="employers_DLI" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/employers_DLI.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_first_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_number_of_empl" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_year_of_birth" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="classification_best_score" type="INTEGER"/>
+				<shadowColumnDef name="classification_count_best" type="INTEGER"/>
+				<shadowColumnDef name="expl" type="STRING"/>
+				<shadowColumnDef name="comp_pattern" type="STRING"/>
+				<shadowColumnDef name="pattern" type="STRING"/>
+				<shadowColumnDef name="proposal_count" type="INTEGER"/>
+				<shadowColumnDef name="vectore_name" type="STRING"/>
+				<shadowColumnDef name="score" type="INTEGER"/>
+				<shadowColumnDef name="std_first_name" type="STRING"/>
+				<shadowColumnDef name="std_last_name" type="STRING"/>
+				<shadowColumnDef name="std_gender" type="STRING"/>
+				<shadowColumnDef name="std_number_of_empl" type="STRING"/>
+				<shadowColumnDef name="std_year_of_birth" type="STRING"/>
+				<shadowColumnDef name="rd" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="72,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="employers_DLI" endpoint="out"/>
+		<target step="Dictionary Lookup Identifier" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,505,61" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use the DLI (Dictionary Lookup Identifier) step for parsing and identifying
+input against LKP files and creating proposals.</modelComment>
+
+
+
+<modelComment bounds="288,96,289,166" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">DLI step uses only the LKP files generated
+in the DLB (Dictionary Lookup Builder) step. 
+
+DLB step generates a folder with LKP files.
+
+The plan generating LKP files for DLI is described
+in tutorial 03.04 LKPs.
+
+DLI is described in comments inside the step.</modelComment>
+
+
+
+<modelComment bounds="288,336,145,38" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">Write the result</modelComment>
+
+
+
+<modelComment bounds="288,264,145,38" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Writes all proposals</modelComment>
+
+</purity-config>

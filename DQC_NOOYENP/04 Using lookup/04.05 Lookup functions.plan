@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Not existing ZIP) --><step id="Not existing ZIP" className="com.ataccama.dqc.tasks.conditions.Filter" disabled="false" mode="NORMAL">
+		<properties>
+			<condition>not isInFile(src_zip,&quot;../data/ext/lkp/ca_zip.lkp&quot;)
+    and 
+src_zip is not null</condition>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Not existing ZIP" endpoint="out"/>
+		<target step="Not valid ZIP" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Not valid ZIP) --><step id="Not valid ZIP" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.05 ZIP_not_valid-addresses.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_street"/>
+				<textWriterColumn name="src_city"/>
+				<textWriterColumn name="src_province"/>
+				<textWriterColumn name="src_zip"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (addresses) --><step id="addresses" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/addresses.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_street" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_city" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_province" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_zip" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="addresses" endpoint="out"/>
+		<target step="Not existing ZIP" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="216,144,265,113" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Here is the isInFile() function,
+which indicates whether the string
+exists in a specified LKP file.
+
+All records with an empty ZIP or a ZIP with not 
+allowed values (given by ZIP.lkp) are filtered out
+in this example.</modelComment>
+
+
+
+<modelComment bounds="24,24,457,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use an LKP file in an expression.</modelComment>
+
+
+
+<modelComment bounds="216,96,313,38" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Filter step is explained in tutorial 05.03 Filter.</modelComment>
+
+</purity-config>

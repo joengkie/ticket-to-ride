@@ -1,0 +1,230 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Address) --><step id="Address" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.12 Xml_Parser-address.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,456,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (All informations) --><step id="All informations" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.12 Xml_Parser-all.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Contact) --><step id="Contact" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.12 Xml_Parser-contact.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,384,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Key) --><step id="Key" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.12 Xml_Parser-key.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Original Xml) --><step id="Original Xml" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="false" fileName="../data/out/06.12 Xml_Parser-original.csv" encoding="UTF-8" writeHeader="false" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="input"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,96,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Personal) --><step id="Personal" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.12 Xml_Parser-personal.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Xml Parser) --><step id="Xml Parser" className="com.ataccama.dqc.tasks.io.xml.reader.XmlParser" disabled="false" mode="NORMAL">
+		<properties inputColumn="input">
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<namespaces>
+				<prefixNamespacePair prefix="nm" namespace="http://www.ataccama.com"/>
+			</namespaces>
+			<recordsOutputs>
+				<recordsOutput rowsRootXPath="nm:extract/nm:employee" out="all">
+					<attributes>
+						<attribute name="prim_key" type="INTEGER" xpath="nm:personal/@primary_key"/>
+						<attribute name="first_name" type="STRING" xpath="nm:personal/nm:first_name"/>
+						<attribute name="last_name" type="STRING" xpath="nm:personal/nm:last_name"/>
+						<attribute name="email" type="STRING" xpath="nm:contact/nm:email"/>
+						<attribute name="phone" type="STRING" xpath="nm:contact/nm:phone"/>
+						<attribute name="phone2" type="STRING" xpath="nm:contact/nm:phone[2]"/>
+						<attribute name="street" type="STRING" xpath="nm:address/nm:street"/>
+						<attribute name="city" type="STRING" xpath="nm:address/nm:city"/>
+						<attribute name="zip" type="STRING" xpath="nm:address/nm:zip"/>
+						<attribute name="street2" type="STRING" xpath="nm:address[2]/nm:street"/>
+						<attribute name="city2" type="STRING" xpath="nm:address[2]/nm:city"/>
+						<attribute name="zip2" type="STRING" xpath="nm:address[2]/nm:zip"/>
+					</attributes>
+					<recordsOutputs/>
+					<shadowColumns>
+						<shadowColumnDef name="file_name" defaultExpression="in.file_name" type="STRING"/>
+					</shadowColumns>
+				</recordsOutput>
+				<recordsOutput rowsRootXPath="nm:extract/nm:employee" out="key">
+					<attributes>
+						<attribute name="prim_key" type="INTEGER" xpath="nm:personal/@primary_key"/>
+					</attributes>
+					<recordsOutputs>
+						<recordsOutput rowsRootXPath="nm:personal" out="personal">
+							<attributes>
+								<attribute name="first_name" type="STRING" xpath="nm:first_name"/>
+								<attribute name="last_name" type="STRING" xpath="nm:last_name"/>
+								<attribute name="prim_key" type="INTEGER" xpath="@primary_key"/>
+							</attributes>
+							<shadowColumns>
+								<shadowColumnDef name="file_name" defaultExpression="in.file_name" type="STRING"/>
+							</shadowColumns>
+						</recordsOutput>
+						<recordsOutput rowsRootXPath="nm:contact" out="contact">
+							<attributes>
+								<attribute name="email" type="STRING" xpath="nm:email"/>
+								<attribute name="phone" type="STRING" xpath="nm:phone"/>
+								<attribute name="phone2" type="STRING" xpath="nm:phone[2]"/>
+								<attribute name="prim_key" type="INTEGER" xpath="../nm:personal/@primary_key"/>
+							</attributes>
+							<shadowColumns>
+								<shadowColumnDef name="file_name" defaultExpression="in.file_name" type="STRING"/>
+							</shadowColumns>
+						</recordsOutput>
+						<recordsOutput rowsRootXPath="nm:address" out="address">
+							<attributes>
+								<attribute name="street" type="STRING" xpath="nm:street"/>
+								<attribute name="city" type="STRING" xpath="nm:city"/>
+								<attribute name="zip" type="STRING" xpath="nm:zip"/>
+								<attribute name="prim_key" type="INTEGER" xpath="../nm:personal/@primary_key"/>
+							</attributes>
+							<shadowColumns>
+								<shadowColumnDef name="file_name" defaultExpression="in.file_name" type="STRING"/>
+							</shadowColumns>
+						</recordsOutput>
+					</recordsOutputs>
+					<shadowColumns>
+						<shadowColumnDef name="file_name" defaultExpression="in.file_name" type="STRING"/>
+					</shadowColumns>
+				</recordsOutput>
+			</recordsOutputs>
+		</properties>
+		<visual-constraints bounds="72,264,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="address"/>
+		<target step="Address" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="all"/>
+		<target step="All informations" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="contact"/>
+		<target step="Contact" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="key"/>
+		<target step="Key" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="out"/>
+		<target step="Original Xml" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Xml Parser" endpoint="personal"/>
+		<target step="Personal" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (xml in text file) --><step id="xml in text file" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties lineSeparator="|||" fieldSeparator="^^^^^^^^^^^^^^^^^" lineMaxReadLength="65536" numberOfLinesInHeader="0" fileName="../data/in/xml_in_text_file.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE">
+			<columns>
+				<textReaderColumn name="input" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="file_name" defaultExpression="&quot;xml in text file.csv&quot;" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="xml in text file" endpoint="out"/>
+		<target step="Xml Parser" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,433,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read a text file with xml strings in one column
+and parse and put them into one or more output endpoints.</modelComment>
+
+
+
+<modelComment bounds="48,528,409,61" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">The XML file may contain multiple entities &quot;address&quot; or multiple atributes &quot;phone&quot;.
+Several output streams were created to show different 
+ways of configuring the Xml Parser step in those cases.</modelComment>
+
+</purity-config>

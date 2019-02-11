@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Address) --><step id="Address" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Address.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="120,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Contact) --><step id="Contact" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Contact.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Lookup names) --><step id="Lookup names" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Lookup_names.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,528,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Partial replacement) --><step id="Partial replacement" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Partial_replacement.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,720,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Party) --><step id="Party" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Party.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Province) --><step id="Province" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Province.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,816,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Replacements) --><step id="Replacements" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.04 Replacements.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,624,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (lookups.xml) --><step id="lookups.xml" className="com.ataccama.dqc.tasks.io.xml.reader.XmlReader" disabled="false" mode="NORMAL">
+		<properties fileName="../data/in/lookups.xml">
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<namespaces>
+				<prefixNamespacePair prefix="nm" namespace="http://www.ataccama.com/"/>
+			</namespaces>
+			<recordsOutputs>
+				<recordsOutput rowsRootXPath="nm:extract/nm:extractBody/nm:enum_table" out="t">
+					<attributes>
+						<attribute name="table_name" type="STRING" xpath="nm:table_name"/>
+					</attributes>
+					<recordsOutputs>
+						<recordsOutput rowsRootXPath="../nm:enum_table[nm:table_name=&quot;REPLACEMENTS&quot;]/nm:rows/nm:row" out="1">
+							<attributes>
+								<attribute name="value" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;value&quot;]/nm:col_num]"/>
+								<attribute name="replacement" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;replacement&quot;]/nm:col_num]"/>
+							</attributes>
+						</recordsOutput>
+						<recordsOutput rowsRootXPath="../nm:enum_table[nm:table_name=&quot;PARTIAL_REPLACEMENT&quot;]/nm:rows/nm:row" out="2">
+							<attributes>
+								<attribute name="value" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;value&quot;]/nm:col_num]"/>
+								<attribute name="replacement" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;replacement&quot;]/nm:col_num]"/>
+							</attributes>
+						</recordsOutput>
+						<recordsOutput rowsRootXPath="../nm:enum_table[nm:table_name=&quot;PROVINCE&quot;]/nm:rows/nm:row" out="3">
+							<attributes>
+								<attribute name="english" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;english&quot;]/nm:col_num]"/>
+								<attribute name="abbreviation" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;abbreviation&quot;]/nm:col_num]"/>
+								<attribute name="french" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;french&quot;]/nm:col_num]"/>
+								<attribute name="firstSegment" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;firstSegment&quot;]/nm:col_num]"/>
+								<attribute name="commonAbbreviation" type="STRING" xpath="nm:value[position()=../../../nm:columns/nm:column[nm:col_name=&quot;commonAbbreviation&quot;]/nm:col_num]"/>
+							</attributes>
+						</recordsOutput>
+					</recordsOutputs>
+				</recordsOutput>
+			</recordsOutputs>
+		</properties>
+		<visual-constraints bounds="48,672,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="lookups.xml" endpoint="t"/>
+		<target step="Lookup names" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="lookups.xml" endpoint="2"/>
+		<target step="Partial replacement" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="lookups.xml" endpoint="3"/>
+		<target step="Province" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="lookups.xml" endpoint="1"/>
+		<target step="Replacements" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (party.xml) --><step id="party.xml" className="com.ataccama.dqc.tasks.io.xml.reader.XmlReader" disabled="false" mode="NORMAL">
+		<properties fileName="../data/in/party.xml">
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<namespaces>
+				<prefixNamespacePair prefix="nm" namespace="http://www.ataccama.com"/>
+			</namespaces>
+			<recordsOutputs>
+				<recordsOutput rowsRootXPath="nm:extract/nm:extractBody/nm:client" out="client">
+					<attributes>
+						<attribute name="src_primary_key" type="STRING" xpath="@primary_key"/>
+						<attribute name="customer_type" type="STRING" xpath="nm:basic_data/nm:customer_type"/>
+						<attribute name="src_sin" type="STRING" xpath="nm:basic_data/nm:personal_data/nm:sin"/>
+						<attribute name="src_name" type="STRING" xpath="nm:basic_data/nm:personal_data/nm:name"/>
+						<attribute name="src_gender" type="STRING" xpath="nm:basic_data/nm:personal_data/nm:gender"/>
+						<attribute name="src_birth_date" type="STRING" xpath="nm:basic_data/nm:personal_data/nm:birth_date"/>
+						<attribute name="src_card" type="STRING" xpath="nm:basic_data/nm:personal_data/nm:card"/>
+						<attribute name="ord" type="STRING" xpath="count(preceding-sibling::*[local-name()=&#39;client&#39;])+1"/>
+						<attribute name="meta_last_updated" type="STRING" xpath="nm:specific_data/nm:meta_last_updated"/>
+					</attributes>
+					<recordsOutputs>
+						<recordsOutput rowsRootXPath="nm:basic_data/nm:address" out="address">
+							<attributes>
+								<attribute name="src_primary_key" type="STRING" xpath="../../@primary_key"/>
+								<attribute name="name" type="STRING" xpath="../../nm:basic_data/nm:personal_data/nm:name"/>
+								<attribute name="street" type="STRING" xpath="nm:street"/>
+								<attribute name="city" type="STRING" xpath="nm:city"/>
+								<attribute name="province" type="STRING" xpath="nm:province"/>
+								<attribute name="zip" type="STRING" xpath="nm:zip"/>
+							</attributes>
+						</recordsOutput>
+						<recordsOutput rowsRootXPath="nm:basic_data/nm:contact" out="contact">
+							<attributes>
+								<attribute name="src_primary_key" type="STRING" xpath="../../@primary_key"/>
+								<attribute name="name" type="STRING" xpath="../../nm:basic_data/nm:personal_data/nm:name"/>
+								<attribute name="cont_type" type="STRING" xpath="nm:cont_type"/>
+								<attribute name="cont_value" type="STRING" xpath="nm:cont_value"/>
+							</attributes>
+						</recordsOutput>
+					</recordsOutputs>
+				</recordsOutput>
+			</recordsOutputs>
+		</properties>
+		<visual-constraints bounds="120,120,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party.xml" endpoint="address"/>
+		<target step="Address" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party.xml" endpoint="contact"/>
+		<target step="Contact" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="215,168"/>
+				<point location="215,227"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party.xml" endpoint="client"/>
+		<target step="Party" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,168"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,625,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read xml files in two different structures.</modelComment>
+
+
+
+<modelComment bounds="312,96,337,373" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;extract xmlns=&quot;http://www.ataccama.com&quot;&gt;
+  &lt;extractHeader&gt;
+	&lt;type_of_records&gt;PARTY&lt;/type_of_records&gt;
+	...
+  &lt;/extractHeader&gt;
+  &lt;extractBody&gt;
+	&lt;client primary_key=&quot;1&quot;&gt;
+		&lt;basic_data&gt;
+			&lt;customer_type&gt;P&lt;/customer_type&gt;
+			&lt;personal_data&gt;
+				&lt;sin&gt;000000000&lt;/sin&gt;
+				&lt;name&gt;Dr. John Smith&lt;/name&gt;
+				 ...
+			&lt;/personal_data&gt;
+			&lt;address&gt;
+				&lt;street&gt;8500 Leslie&lt;/street&gt;
+				...
+				&lt;zip&gt;...&lt;/zip&gt;
+			&lt;/address&gt;
+				...
+		&lt;/basic_data&gt;
+		...
+	&lt;/client&gt;
+	...				
+  &lt;/extractBody&gt;
+&lt;/extract&gt;</modelComment>
+
+
+
+<modelComment bounds="264,504,392,438" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
+&lt;extract xmlns=&quot;http://www.ataccama.com/&quot;&gt;
+  &lt;extractHeader&gt;
+    &lt;type_of_records&gt;lookups&lt;/type_of_records&gt;
+   	 ...
+  &lt;/extractHeader&gt;
+  &lt;extractBody&gt;
+  	&lt;enum_table type_regime=&quot;F&quot;&gt;
+		&lt;table_name&gt;REPLACEMENTS&lt;/table_name&gt;
+			&lt;columns&gt;
+			    &lt;column&gt;
+				&lt;col_num&gt;1&lt;/col_num&gt;
+				&lt;col_name&gt;value&lt;/col_name&gt;
+				&lt;data_type&gt;VARCHAR2(20)&lt;/data_type&gt;
+			    &lt;/column&gt;
+				 ...
+      			&lt;/columns&gt;
+			&lt;rows&gt;
+			    &lt;row&gt;
+				&lt;value&gt;Leslei&lt;/value&gt;
+				&lt;value&gt;Leslie&lt;/value&gt;
+			    &lt;/row&gt;
+			    &lt;row&gt;
+				&lt;value&gt;st&lt;/value&gt;
+				&lt;value&gt; street&lt;/value&gt;
+			    &lt;/row&gt;
+				...
+			&lt;/rows&gt;
+    		&lt;/enum_table&gt;
+		....
+  &lt;/extractBody&gt;
+&lt;/extract&gt;</modelComment>
+
+</purity-config>

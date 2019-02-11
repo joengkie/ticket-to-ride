@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata version="10.0.0.daily-2015-07-01">
+	<referenceData primaryKeyComponentId="key" class="com.ataccama.dqc.addresses.commons.model.etalon.ReferenceDataDefinition" createWordLookups="false">
+		<components>
+			<entityComponent id="key" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+			<entityComponent id="first_name" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+			<entityComponent id="last_name" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+			<entityComponent id="gender" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+			<entityComponent id="number_of_empl" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+			<entityComponent id="year_of_birth" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+		</components>
+		<matchingValue substituteWith=" " doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:][:digit:]" doRemoveDia="false" doUpperCase="false"/>
+		<supportingVectors>
+			<supportingVectorDefinition name="fname_lname">
+				<inComponents>
+					<entityComponentReference id="first_name"/>
+					<entityComponentReference id="last_name"/>
+				</inComponents>
+			</supportingVectorDefinition>
+			<supportingVectorDefinition name="fname_lname_numempl">
+				<inComponents>
+					<entityComponentReference id="first_name"/>
+					<entityComponentReference id="last_name"/>
+					<entityComponentReference id="number_of_empl"/>
+				</inComponents>
+			</supportingVectorDefinition>
+			<supportingVectorDefinition name="fname_gender">
+				<inComponents>
+					<entityComponentReference id="first_name"/>
+					<entityComponentReference id="gender"/>
+				</inComponents>
+			</supportingVectorDefinition>
+			<supportingVectorDefinition name="lname_yearbirth">
+				<inComponents>
+					<entityComponentReference id="last_name"/>
+					<entityComponentReference id="year_of_birth"/>
+				</inComponents>
+			</supportingVectorDefinition>
+		</supportingVectors>
+		<tokenizerConfig whiteSpaceDefinition="[:white:]" class="com.ataccama.dqc.tasks.common.parse.ConfigurableTokenizerConfig">
+			<types>
+				<tokenType tokenStartCharacters="[:letter:]" tokenCharacters="[:letter:]"/>
+				<tokenType tokenStartCharacters="[:digit:]" tokenCharacters="[:digit:]"/>
+			</types>
+		</tokenizerConfig>
+	</referenceData>
+</metadata>

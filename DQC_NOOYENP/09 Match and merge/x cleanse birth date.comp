@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<component-id>C3</component-id>
+	<icon type="5">iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAMl0lEQVR4nM2aiVdT1xbG/Z9a+2ona6ttbbU+u7RqqVaXWmsr1TqgKKMKyiiDKPMcSIIhhBBCCAESMpCQAAEiEBIyCDKEUUVw/N45B5Jg+2xQy3vutfYKhMu6v29nn733OblrQGxhYQEOhwM6nQ5qtfqtdoPBAKfTiUePHlF0rJmfn4e6RQ230Y57nR7MtXtw3ziOe4ZRzOpGMKMbxox2CNPEp9R3MKFywaN0YLxpEOMKO0YbrBip78ewrA9D0l4MSSxw13TDJTLDWdUBh7ADgwIj7LeMGODrYeXq0F+mRT9Hi95SNW6XtMBSrERPYTO6C4jnNRJvgDmXeM6id2bVoyOzHsZ0CbTxQjSlC6BqVoGyrxkcHISr1Ya5zgnMmQm8icC3+uGn1QSegE+q3JhQOuFpIvCNdozJBzAqt+KujMAvgd8Rd8NdTcCFnUvgJgZu4xsWwTle8BbcLlbBUkTBlejOb0JXngJdS8DmbDmBlqODOgFvz6yD6YYUxhQxWiJ5kB3NRv3VclD2NVqtFvd0o7jfNo77hjHMtBDoRgIsd2FC5oBHSiItJcCSfoxW92G46jaGKgnsLQJbQWC57XCUE1AOAS1phbWIgOZr0JtHIHOUsGQ2oTuzEV0ZBCydAKVJ0Z4ihSlZAmOiGG0J1TDEi6C/KoQulvot5toY4pcroL3Eh2bJ1dF8yI/nQ/prFmqPZYGyr6F5NascZj6tuAOPmABXDmCsggDzezHMtWCI0407JZ1wFRHYfCMG8wywZelgzdSgP0OF3nQSyVQFupPlMCfI0BFHAGMlMMUQuItC6KMIWDgBukAgzvPQcrYMyjOlUJ4uQdPJIjSeKICCgDX8ng95cA7kx/Ig+y0Lsl8zF/0ofc1h79UReCpAQt6n7EzAtNzNfFLqfDvhj/pFUAG1S5+AT8CUzIVJGclvif2thl/0bAYvJdf7BNDIT0jJ4hQP/GPwbZdEsAmNmLWP4dG9h/Da86fPMDc+g7v6ARgSRK8EX0/9WA6Dl/2e6xcwIRmEp5bkvsj6j8AbY8UYNdjx7PFT/J09nLiHnuLmFcPT6+qDcxm87HieX4BHbMN4jQ2jwv5/JPKjrQMvgD5//px8CvMM+PGDhRf+9vjBPDqy61cELw8m/nseg5edWCZgvNqKMTGp6ZW33zjnrTw9nj975gOcn3qAgao2ViY1ETy0XqmEU27G04XHvmtm7KOoPXQdFVtiwP/qIrgbI1G2IRKcj8NQ+tEFlH5wASXrzrPX0g8voPCjUBSvD/cLGK0iC1dEGlJFzxvBGy5XYdo64gNbmJmDOasBqnMcyA5noiYoDeKgVFTvSWQNarkIWvML3zm16O+GMC9aexbF7xHY90NRSgRwPgwjosJR/Ek4OBsi/AJGKvtwV0gaFK/7japNV7YCT+Ye+aCst3ToLVfjbqsVHRlSlgoOeSdG2mxoieLCrbT4rh2UtgeELyfwZesjwPk0AmWfRfsFDAvIwhX0wF1ufm141ckSWApVrMqwBTo+C1VoGXoKmqAMKYVNbIRV2MpGBn1yFboKG6GLE/gEjJrsAeF5n0SCtyGawXO/uOwXMMTvJk7GAk7HK8FrQrho/Jm09j3pEH4dT8aDGl/lmSMCavdnkBtHgP/lJYj3prDfhTvjyc1pjodBc5HvE+CxuAPC8wl8xcYYBs//KtYvwM01w80zw1FqDAhviBBCdbwU8p+yId52DaIt8ajcHAfBFzEwJovx9NETH1RLWDmDGO9yYsYxjqn+YdwbnmTRp+nSy2t5QUAgeMHGWAi+vIqKzVcg+DrOL8BV1g4nGcgGiwwvhddfqITqWAnqg25Csj0V4q3JL8BXbLwE0zUJnjx8hMm+Yda8xjoc4G2KglPR/ULpVIVxINqdRCrUfXi6yRRAhE313w0M/8VVCDfHE/gECL9N9AtwlJqY2/Jb/wJvCKuC6jcO5HtuQroz/aXwNDeN12rYIqafhIpE/9mTpxiUmckEmcOibhUZoE+sIrU8B9OkdFKhldvj4WgwY9Y1ERBetDkBom+SGbyIcPgE0Mjbi8nMnqfzwbdFVKHlWBkagkgj2X0jIDx3fSTaksSsUamj+AQmhNV8mlKzLg/6BDqySZGzakPL67RtFFW7klnaDGv7MOueCAhfvTUJ1d8mMXjxjjS/AHuhHrYiPfpzWmC6KIb2BBeKn/JeCb7so3C0JVYvCojmsnQoXHsaWjLbe9eFt0LRdKkOSlnM+X+FYlizKCAQvGRbCuFIZ/CS3Rl+AdZ8HfqyVOi4JIHyUBEU+14dnt6cDmdMANk1UfjCd08xb4ko9zUtmjY+eJrz64gAbT8TEAi+7rsM1O28weDrfli2H+hOksMUSSJ/nPfa8PTj1ydUMQGay3wfPK02tFzS9UDhRT+k/KXaUAH3iIBA8LKdNyHbQ4a+oCzU71s2C+lPC6A/cwvq4FfL+eXwNOdp5CloR6bMB98aV8mi/zJ4/qZLmOwdwkSPOyC8Yk82FD/mMnjFgSK/AO0fPObKoyWvDU+haJOiE+eI0cbgVWGlLO9fyPk/lUoFmTAfzy2wgS8QfOOPeWjaX8Tgmw+X+AVogsuhPlGO5iOFrw1Pc75kXQirNhSajsNqMu+MGO2kC6e9pElFwFFnZmtDeao0ILySwKsOljJ45S/lfgHKYxyogkvQeCjvteG9OS/cEY+F6Qes49YevPHS8YD3aRTa06QM3tXQjep/JweEVx/kQHOknGQKF5pj/GUCfikibxah4UDOG8F7x+Hmc8V4Mv8YD0ZnoIsVQLAtzgfP/TQS9b9kwyHtZPB0/JbuvbEieO0RLnRHK6D5rQK6EwK/gObDBWg8kg/Z3sw3hveOxI1nijE9OMYgaYmkzcqp6MJ4h5M1MmpuRQ/q9t5cMbz+VwEMwUK0Hievp0R+AQ0Hc6E4RPaZQdcZvOpUCasaKzVPjwt1hzP+Ms/f+uYKjGkSVibv353C/OR9zBJRznozdFECVG1JeCV403ERTCer0XaSvJ6R+AXU7yd19UAmavekscjTGzUczQ0Yefq7KrwMNftS8dAzu6J5fiWl8mXwHadq0EnATWclaA+V+gXI9pJ/3k863K40ljbUAsGXfRbGIj+s62eRp7ba8F0hUnSF1qMjtA7mcIVfgDQog+Vi9c5klvPUAkWewlOjeU3Bqa02vOW8ApYwBbrC5eiJavILkJAdleSHVIi+S2KRp/Z3C9bCUfnyn25UvAJWG743vBF9kc2wRDahN6bFL6Dm+xTU7ElF1fYEFnlqy+HLPg/3wdNTNK/R6kLPbWjkmYBVhrdGq2C9pEHf5Rb0X9H4BdDUEe+6hsqtcezmizAhKCU/m65L2O6qalcCEXCazPGLxyZ0F8XdGO1LG6/o1YS3X9bBHtsK61UtbAmtfgGi7WSHsyMJgq1XGYQ3HXp5al+03c09ZFjj+tKm7LOoF3Lem3arCe+MM8AZ3wZ7oh72pDa/AOG/41G1I5HU7VgWeVZRlnJeFVHmO5ylDYj+LCDX/3nBUltteHeCCe5ksndPMsGZ2u4XUElavZDkf8Xmi750WN5hq75PYHWemuJkwX+tNtRWG374mhlDqWa4UjvgTu/yCxBsjWGba/5X0SzyPgHLxgO6f+3lal5aKqmtNvxIugV3r/fgzvVuDN+0LBOw5QobuHhfRjNwJuBPs02gJkVtteHHMnoxltmP4czbGMnq8wuguS/YFgvepotMwIPRaXZKvFJ48c5r7ChxteEnMgfgyR7AaHY/xnIG/AL4JPdpBeJtimTQtNZ7c34lRmcnzXn+qsNP5Q5iMt+OsVwbPAV2vwDepmjwNtND0/BXSpv/Rc4vh58tdGGqwIWJfCKk2OkXUPLBOfbFAfvy4C2Gny26g+kiF4OfLHEvCmhtbUXx+lDkv/MH8dPIe3fJ155BwXshKHj/LIrWhRKR51H6cRg468NRviEKvM8vo2ITEbD56uJcvy0JNdvTULuTCNidCfmP2VDsK4DyQDFUP5Ot4FEe9MECtP0hQvtpMhaHytB1QQ5LRDP6o1swEKOFPU4PZ2Ib3CmdGCaVZuQGWbRZ/fDk2jFZ4Fj0JXhPuQuUfQ19cEJ4Ngs575xA1rsnmWevPYXc984gjzS1gnXnUPhB6OLXOp+EsW9GvOfz9IibnhJ7zyq9J2b00Ml79OHdgNM9LN0G0p0U3YzQeZ6OxHSqpIMZnW3oeEA7LG1StM7TUkmrDV2wNOe98NOcIdjEFvaAyhr6pAp9cOLWyevIWRfy1sOPc12w1dxmD6iwhz1oFXn48CHsdjt79uD//ThNINfr9ewhDwpP7T9SeWtKoEdhJwAAAABJRU5ErkJggg==</icon>
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns for birth date) --><step id="Add columns for birth date" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="std_birth_date" type="DAY"/>
+				<addedColumn name="out_birth_date" type="STRING"/>
+				<addedColumn name="exp_birth_date" type="STRING"/>
+				<addedColumn name="sco_birth_date" type="INTEGER"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Add columns for birth date" endpoint="out"/>
+		<target step="Remove abbrev." endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Birth_date out) --><step id="Birth_date out" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="nvl(toString(std_birth_date,&quot;yyyy-MM-dd&quot;),src_birth_date)" column="out_birth_date">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,600,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Birth_date out" endpoint="out"/>
+		<target step="Remove columns" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Create std birth date value) --><step id="Create std birth date value" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties whenCondition="sco_birth_date &lt;1000">
+			<assignments>
+				<assignment column="std_birth_date">
+					<expression>toDate(
+	pur_birth_date_year + 
+	pur_birth_date_month +
+	pur_birth_date_day,
+	&#39;yyyyMMdd&#39;
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+					<comm:comment>Function toDate converts the input string (concatenation of pur_birth_date values) to the column of data type day named std_birth_date. In case the input day values are invalid (e.g., &quot;50&quot; for a day value), the output column will be empty.</comm:comment>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,456,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Create std birth date value" endpoint="out"/>
+		<target step="Verify birth date validity" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Parse date) --><step id="Parse date" className="com.ataccama.dqc.tasks.clean.RegexMatchingAlgorithm" disabled="false" mode="NORMAL">
+		<properties expression="pur_birth_date" regexNameColumn="pat_birth_date_regex" appendRegexNameColumn="false" appendRegexNameColumnSeparator=" ">
+			<noMatchColumns/>
+			<regExpressions>
+				<regExpression pattern="(\d{4})-(\d{1,2})-(\d{1,2})" name="yyyy-MM-dd" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{4})(\d{2})(\d{2})" name="yyyyMMdd" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{2})(\d{2})(\d{2})" name="yyMMdd" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{2})-(\d{1,2})-(\d{1,2})" name="yy-MM-dd" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{1,2})\.(\d{1,2})\.(\d{4})" name="dd.MM.yyyy" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{1,2})\.(\d{1,2})\.(\d{2})" name="dd.MM.yy" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{1,2})\/(\d{1,2})\/(\d{2})" name="MM/dd/yy" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="(\d{1,2})\/(\d{1,2})\/(\d{4})" name="MM/dd/yyyy" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_birth_date_day" substitution="$2"/>
+						<regexOutputColumn name="pur_birth_date_month" substitution="$1"/>
+						<regexOutputColumn name="pur_birth_date_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+			</regExpressions>
+			<scorer explanationColumn="exp_birth_date" scoreColumn="sco_birth_date">
+				<scoringEntries>
+					<scoringEntry score="10000" explainAs="BIRTH_DATE_NULL" explain="true" key="STN_NULL"/>
+					<scoringEntry score="0" explainAs="STN_MATCHED" explain="false" key="STN_MATCHED"/>
+					<scoringEntry score="10000" explainAs="BIRTH_DATE_UNPARSABLE" explain="true" key="STN_NOT_MATCHED"/>
+				</scoringEntries>
+				<comm:comment>The step scores unwanted cases only: 
+1) input value was empty
+2) input value wasn&#39;t matched on any defined pattern.</comm:comment>
+			</scorer>
+			<comm:comment>This step parses birth date values written in a column of string data type (expected in many different formats). It uses defined regular expressions to parse year, month and day values into separate columns (pur_birth_date_year, pur_birth_date_month, pur_birth_date_day) and writes the name of the used pattern into the patt_birth_date_regex column.</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Parse date" endpoint="out"/>
+		<target step="Prepare date values" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Prepare date values) --><step id="Prepare date values" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment column="pur_birth_date_year">
+					<expression>iif (
+	length( pur_birth_date_year ) == 2,
+		iif ( 
+			toInteger ( pur_birth_date_year ) &lt; 10,
+			&#39;20&#39; + pur_birth_date_year,
+			&#39;19&#39; + pur_birth_date_year 
+		),
+		pur_birth_date_year
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+					<comm:comment>If the year is represented by 2 digits only, the &#39;19&#39; or &#39;20&#39; is added to the front (&#39;20&#39; for years 01-09, &#39;19&#39; for the rest)</comm:comment>
+				</assignment>
+				<assignment column="pur_birth_date_day">
+					<expression>iif(
+	length(pur_birth_date_day) == 1,
+		&#39;0&#39; + pur_birth_date_day,
+		pur_birth_date_day
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+					<comm:comment>If the day is represented by 1 digit only, &#39;0&#39; is added to the beginning.</comm:comment>
+				</assignment>
+				<assignment column="pur_birth_date_month">
+					<expression>iif(
+	length(pur_birth_date_month) == 1,
+		&#39;0&#39; + pur_birth_date_month,
+		pur_birth_date_month
+)</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+					<comm:comment>If the month is represented by 1 digit only,  &#39;0&#39; is added to the beginning.</comm:comment>
+				</assignment>
+			</assignments>
+			<comm:comment>Standardizes all pur_birth_date columns by appending zeroes (3 -&gt; 03) or century values (82 -&gt; 1982) where necessary.</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,384,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Prepare date values" endpoint="out"/>
+		<target step="Create std birth date value" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove abbrev.) --><step id="Remove abbrev." className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="src_birth_date" column="pur_birth_date">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="pur_birth_date">
+					<expression>replace(pur_birth_date,&quot;B.&quot;, &quot;&quot;)
+
+//removing extra characters, however this is usually done by special cif file values</expression>
+					<scorer explanationColumn="exp_birth_date" scoreColumn="sco_birth_date">
+						<scoringEntries>
+							<scoringEntry score="100" explainAs="BIRTH_DATE_REMOVED_EXTRA_CHARS" explain="true" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove abbrev." endpoint="out"/>
+		<target step="Parse date" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove columns) --><step id="Remove columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns/>
+			<removedColumns>
+				<columnRef name="pur_birth_date_year"/>
+				<columnRef name="pur_birth_date_month"/>
+				<columnRef name="pur_birth_date_day"/>
+				<columnRef name="pur_birth_date"/>
+			</removedColumns>
+		</properties>
+		<visual-constraints bounds="48,672,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove columns" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Verify birth date validity) --><step id="Verify birth date validity" className="com.ataccama.dqc.tasks.scoring.SimpleScoring" disabled="false" mode="NORMAL">
+		<properties defaultScoreColumn="sco_birth_date" defaultExplainColumn="exp_birth_date">
+			<scoringCases>
+				<scoringCase description="Invalid value in one of the pur_birth_date columns" explanation="&quot;BIRTH_DATE_INVALID_VALUE&quot;" score="10000">
+					<condition>(std_birth_date is NULL or std_birth_date &gt; today() )
+AND (exp_birth_date is NULL)</condition>
+				</scoringCase>
+			</scoringCases>
+		</properties>
+		<visual-constraints bounds="48,528,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Verify birth date validity" endpoint="out"/>
+		<target step="Birth_date out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="src_birth_date" type="STRING"/>
+			</columns>
+			<shadowColumns>
+				<shadowColumnDef name="pat_birth_date_regex" type="STRING"/>
+				<shadowColumnDef name="pur_birth_date_year" type="STRING"/>
+				<shadowColumnDef name="pur_birth_date_month" type="STRING"/>
+				<shadowColumnDef name="pur_birth_date_day" type="STRING"/>
+				<shadowColumnDef name="pur_birth_date" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Add columns for birth date" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints bounds="48,744,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="264,168,468,246" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Extra characters (like B.) are removed. 
+Year, month, day are identified by Regex Matching.
+Century is added for year formats like &#39;03&#39;
+       03 ---&gt; 2003
+       56 ---&gt; 1956
+
+Column prefixes:
+out_ ... used for creating Golden records
+std_ ... correct values - found in the lookup files or validated by business rules
+src_ ... original values - never changed
+sco_... (integer) measure of attribute quality
+     0 ... correct at input
+     &lt;10000 ... corrected
+     &gt;=10000 ... invalid or null, cannot be used for matching or output values</modelComment>
+
+
+
+<modelComment bounds="24,24,625,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Component Goals
+The goal of this component is to cleanse birth dates to be used in 09.01 Match and merge tutorial.</modelComment>
+
+</purity-config>

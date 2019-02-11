@@ -1,0 +1,157 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Quality metrics) --><step id="Quality metrics" className="com.ataccama.dqc.tasks.dqi.DataQualityIndicator" disabled="false" mode="NORMAL">
+		<properties explainedColumn="exp" outRecordsFilterType="WRONG">
+			<rules>
+				<dQIRule expression="src_gender is in {&#39;M&#39;,&#39;F&#39;} or src_gender is null" shortDescription="src_gender is M or F or empty" description="M or F are used as gender values. Sometimes the value is not filled, but this is tolerated." name="src_gender" code="GENDER_WRONG_VALUE"/>
+				<dQIRule expression="src_birth_date is not null" shortDescription="src_birth_date should not be empty" description="Birth date must be filled" name="src_birth_date" code="BIRTH_DATE_EMPTY"/>
+				<dQIRule expression="length(trashNonDigits(src_sin)) =9" shortDescription="src_sin should contain 9 digits" description="After removing non-digits, the src_sin field should contain 9 digits" name="src_sin" code="SIN_NOT_9_DIGITS"/>
+				<dQIRule expression="meta_last_update &lt; today()" shortDescription="last update should not be in future" description="A future date in the meta_last_update column indicates data error" name="meta_last_update" code="LASTUPDATE_IN_FUTURE"/>
+			</rules>
+		</properties>
+		<visual-constraints bounds="96,192,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Quality metrics" endpoint="summary"/>
+		<target step="Report" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="202,240"/>
+				<point location="287,240"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Quality metrics" endpoint="out"/>
+		<target step="Wrong records" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,240"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Report) --><step id="Report" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/07.01 Report.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="Name"/>
+				<textWriterColumn name="Code"/>
+				<textWriterColumn name="Short_Description"/>
+				<textWriterColumn name="Description"/>
+				<textWriterColumn name="Expression"/>
+				<textWriterColumn name="Success_Count"/>
+				<textWriterColumn name="Total"/>
+				<textWriterColumn expression="(Success_Count / Total)*100" name="Success_Percent"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="264,264,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Wrong records) --><step id="Wrong records" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/07.01 Wrong_records.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="exp"/>
+				<textWriterColumn name="src_name"/>
+				<textWriterColumn name="src_gender"/>
+				<textWriterColumn name="src_birth_date"/>
+				<textWriterColumn name="src_sin"/>
+				<textWriterColumn name="src_card"/>
+				<textWriterColumn name="src_address"/>
+				<textWriterColumn name="src_primary_key"/>
+				<textWriterColumn name="meta_last_update"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,264,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (party_full) --><step id="party_full" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/party_full.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_birth_date" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_sin" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_card" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_address" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_email" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_primary_key" type="INTEGER" ignore="false"/>
+				<textReaderColumn name="meta_last_update" type="DAY" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy/MM/dd"/>
+				</textReaderColumn>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="exp" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party_full" endpoint="out"/>
+		<target step="Quality metrics" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,192"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,489,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to measure quality of data in the input file by testing 
+their conformance to the business rules defined in the Data Quality Indicator step.</modelComment>
+
+
+
+<modelComment bounds="48,336,199,134" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">All records which have not 
+passed at least one check
+are written into this file.
+
+The first column contains the
+error code(s) corresponding to
+the violated business rule.</modelComment>
+
+
+
+<modelComment bounds="216,96,304,102" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">There are four business rules in this example:
+  1. src_gender should contain M or F or is empty
+  2. src_birth date should not be empty
+  3. src_sin should contain 9 digits
+  4. meta_last_update should not be in the future</modelComment>
+
+
+
+<modelComment bounds="288,336,409,150" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">The report contains all information entered in the DQI step 
+with the following additional columns generated by the DQI step:
+
+Success_count - number of records which passed all DQI
+Total - total number of total rows
+
+Another column is created from the two above in Text File Writer Step:
+Success_percent - Success_count/Total</modelComment>
+
+</purity-config>

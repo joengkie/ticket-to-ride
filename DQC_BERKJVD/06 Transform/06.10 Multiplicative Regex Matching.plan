@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Multiplicative Regex Matching) --><step id="Multiplicative Regex Matching" className="com.ataccama.dqc.tasks.clean.MultiplicativeRegexMatchingAlgorithm" disabled="false" mode="NORMAL">
+		<properties expression="src_birth_date" regexNameColumn="regex_name" appendRegexNameColumn="false" appendRegexNameColumnSeparator=" " recordDescriptorColumn="rd_birth_date">
+			<noMatchColumns/>
+			<regExpressions>
+				<regExpression pattern="([0123]?[0-9])[\./-]([01]?[0-9])[\./-]([0-9]{2,4})" name="dd.mm.yyyy - CZ" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_day" substitution="$1"/>
+						<regexOutputColumn name="pur_month" substitution="$2"/>
+						<regexOutputColumn name="pur_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="([01]?[0-9])[\./-]([0123]?[0-9])[\./-]([0-9]{2,4})" name="mm.dd.yyyy - US" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_month" substitution="$1"/>
+						<regexOutputColumn name="pur_day" substitution="$2"/>
+						<regexOutputColumn name="pur_year" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+				<regExpression pattern="([0-9]{4})[\./-]([01]?[0-9])[\./-]([0123]?[0-9])" name="yyyy.mm.dd - GB" multiplicative="false" ignoreCase="false" partialMatch="false">
+					<resultColumns>
+						<regexOutputColumn name="pur_year" substitution="$1"/>
+						<regexOutputColumn name="pur_month" substitution="$2"/>
+						<regexOutputColumn name="pur_day" substitution="$3"/>
+					</resultColumns>
+				</regExpression>
+			</regExpressions>
+			<scorer>
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="STN_NULL" explain="true" key="STN_NULL"/>
+					<scoringEntry score="0" explainAs="STN_MATCHED" explain="true" key="STN_MATCHED"/>
+					<scoringEntry score="0" explainAs="STN_NOT_MATCHED" explain="true" key="STN_NOT_MATCHED"/>
+				</scoringEntries>
+			</scorer>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicative Regex Matching" endpoint="out"/>
+		<target step="Results - MRM" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Results - MRM) --><step id="Results - MRM" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.10 Multiplicative_Regex_Matching.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (party_full) --><step id="party_full" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/party_full.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_birth_date" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_sin" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_card" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_address" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_email" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_primary_key" type="STRING" ignore="false"/>
+				<textReaderColumn name="meta_last_update" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="pur_day" type="STRING"/>
+				<shadowColumnDef name="pur_month" type="STRING"/>
+				<shadowColumnDef name="pur_year" type="STRING"/>
+				<shadowColumnDef name="rd_birth_date" type="STRING"/>
+				<shadowColumnDef name="regex_name" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party_full" endpoint="out"/>
+		<target step="Multiplicative Regex Matching" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,625,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use the Multiplicative Regex Matching step to parse and extract values
+in the input string using defined patterns of regular expressions and return all possible matches.</modelComment>
+
+
+
+<modelComment bounds="288,96,359,337" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">In the plan the goal is to extract a day, month and year 
+from the birth_date column of the party file. 
+Dates have ambiguous structure: 
+ - dd.mm.yyyy - typical for CZ
+ - mm.dd.yyyy - typical for US
+ - yyyy.mm.dd - typical for GB
+(dd = day, mm = month, yyyy = year).
+On the output is return of all possible matches.
+
+A CZ date corresponds to the following regular expression:
+
+([0123]?[0-9])[\./-]([01]?[0-9])[\./-]([0-9]{2,4})
+
+The [\./-] part of the expression specifies which
+symbols can be used as separators, so both 
+1.12.2003 and 01/12/2003 are valid inputs.
+
+Performing such extraction on real data would require 
+more regular expressions than defined in this plan.</modelComment>
+
+</purity-config>

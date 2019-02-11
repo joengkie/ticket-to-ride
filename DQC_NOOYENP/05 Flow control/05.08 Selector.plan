@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Selector) --><step id="Selector" className="com.ataccama.dqc.tasks.flow.Selector" disabled="false" mode="NORMAL">
+		<properties recordDescriptorColumn="rd_full_name">
+			<assignments>
+				<assignment expression="best.src_full_name" column="src_full_name"/>
+				<assignment expression="best.pur_one_word" column="pur_longest_name"/>
+				<assignment expression="count()" column="pur_count_names"/>
+				<assignment expression="concatenateif(length(pur_one_word)&gt;4, pur_one_word, &quot;^&quot;, 1000)" column="pur_long_words"/>
+			</assignments>
+			<selectionRules>
+				<orderBy expression="length(pur_one_word)" orderDescending="true" nullsFirst="false"/>
+				<orderBy expression="pur_one_word" orderDescending="false" nullsFirst="false"/>
+			</selectionRules>
+		</properties>
+		<visual-constraints bounds="48,264,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Selector" endpoint="out"/>
+		<target step="Selector name" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Selector name) --><step id="Selector name" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/05.08 Selector_names.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_full_name"/>
+				<textWriterColumn name="pur_longest_name"/>
+				<textWriterColumn name="pur_count_names"/>
+				<textWriterColumn name="pur_long_words"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,336,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Splitter) --><step id="Splitter" className="com.ataccama.dqc.tasks.text.Splitter" disabled="false" mode="NORMAL">
+		<properties allSentenceColumn="src_full_name" recordDescriptorColumn="rd_full_name" oneWordColumn="pur_one_word">
+			<separatorConfig includeSeparators="" lowerCaseLetters="false" excludeSeparators="." digits="false" upperCaseLetters="false"/>
+			<comm:comment>Default separator is everything except letter and digit. We excluded dot (.) because we want to have Ph.D. as one word.</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,192,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Splitter" endpoint="out"/>
+		<target step="Selector" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (names) --><step id="names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_full_name" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="pur_one_word" type="STRING"/>
+				<shadowColumnDef name="rd_full_name" type="STRING"/>
+				<shadowColumnDef name="pur_longest_name" type="STRING"/>
+				<shadowColumnDef name="pur_count_names" type="INTEGER"/>
+				<shadowColumnDef name="pur_long_words" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,120,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names" endpoint="out"/>
+		<target step="Splitter" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="192,288,293,102" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">Selector uses the record descriptor column to:
+- select the longest word from each full name
+- count the number of words in each full name
+- concatenate words from full names which are
+longer than 4 characters</modelComment>
+
+
+
+<modelComment bounds="192,168,289,102" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Splitter step is explained in tutorial
+06.06 Splitter.
+
+In short, it splits a row with a string into its
+constituent words, putting one word per row.</modelComment>
+
+
+
+<modelComment bounds="24,24,409,61" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use the Selector step which selects the best record
+from each group generated by a multiplicative step.</modelComment>
+
+</purity-config>

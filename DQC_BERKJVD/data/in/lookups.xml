@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extract xmlns="http://www.ataccama.com/">
+  <extractHeader>
+    <type_of_records>lookups</type_of_records>
+    <number_of_records>3</number_of_records>
+    <date>2012-12-12</date>
+  </extractHeader>
+  <extractBody>
+    <enum_table type_regime="F">
+      <table_name>REPLACEMENTS</table_name>
+      <columns>
+        <column>
+          <col_num>1</col_num>
+          <col_name>value</col_name>
+          <data_type>VARCHAR2(20)</data_type>
+        </column>
+        <column>
+          <col_num>2</col_num>
+          <col_name>replacement</col_name>
+          <data_type>VARCHAR2(20)</data_type>
+        </column>
+      </columns>
+      <rows>
+        <row>
+          <value>Leslei</value>
+          <value>Leslie</value>
+        </row>
+        <row>
+          <value>st</value>
+          <value> street</value>
+        </row>
+        <row>
+          <value>St John</value>
+          <value> Saint John</value>
+        </row>
+        <row>
+          <value>strert</value>
+          <value>street</value>
+        </row>
+        <row>
+          <value>stfeet</value>
+          <value>street</value>
+        </row>
+        <row>
+          <value>stret</value>
+          <value>street</value>
+        </row>
+      </rows>
+    </enum_table>
+    <enum_table type_regime="F">
+      <table_name>PARTIAL_REPLACEMENT</table_name>
+      <columns>
+        <column>
+          <col_num>1</col_num>
+          <col_name>value</col_name>
+          <data_type>VARCHAR2(20)</data_type>
+        </column>
+        <column>
+          <col_num>2</col_num>
+          <col_name>replacement</col_name>
+          <data_type>VARCHAR2(20)</data_type>
+        </column>
+      </columns>
+      <rows>
+        <row>
+          <value>N</value>
+          <value> NORTH</value>
+        </row>
+        <row>
+          <value>S</value>
+          <value> SOUTH</value>
+        </row>
+        <row>
+          <value>E</value>
+          <value> EAST</value>
+        </row>
+        <row>
+          <value>W</value>
+          <value> WEST</value>
+        </row>
+        <row>
+          <value>NE</value>
+          <value> NORTHEAST</value>
+        </row>
+        <row>
+          <value>NW</value>
+          <value> NORTHWEST</value>
+        </row>
+        <row>
+          <value>SE</value>
+          <value> SOUTHEAST</value>
+        </row>
+        <row>
+          <value>SW</value>
+          <value> SOUTHWEST</value>
+        </row>
+        <row>
+          <value>STR</value>
+          <value> STREET</value>
+        </row>
+        <row>
+          <value>DRV</value>
+          <value> DRIVE</value>
+        </row>
+        <row>
+          <value>AVN</value>
+          <value> AVENUE</value>
+        </row>
+      </rows>
+    </enum_table>
+    <enum_table type_regime="F">
+      <table_name>PROVINCE</table_name>
+      <columns>
+        <column>
+          <col_num>1</col_num>
+          <col_name>english</col_name>
+          <data_type>VARCHAR2(50)</data_type>
+        </column>
+        <column>
+          <col_num>2</col_num>
+          <col_name>abbreviation</col_name>
+          <data_type>VARCHAR2(2)</data_type>
+        </column>
+        <column>
+          <col_num>3</col_num>
+          <col_name>french</col_name>
+          <data_type>VARCHAR2(50)</data_type>
+        </column>
+        <column>
+          <col_num>4</col_num>
+          <col_name>firstSegment</col_name>
+          <data_type>VARCHAR2(5)</data_type>
+        </column>
+        <column>
+          <col_num>5</col_num>
+          <col_name>commonAbbreviation</col_name>
+          <data_type>VARCHAR2(5)</data_type>
+        </column>
+      </columns>
+      <rows>
+        <row>
+          <value>Alberta</value>
+          <value>AB</value>
+          <value>Alberta</value>
+          <value>T</value>
+          <value>ALTA</value>
+        </row>
+        <row>
+          <value>British Columbia</value>
+          <value>BC</value>
+          <value>Colombie-Britannique</value>
+          <value>V</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Manitoba</value>
+          <value>MB</value>
+          <value>Manitoba</value>
+          <value>R</value>
+          <value>MAN</value>
+        </row>
+        <row>
+          <value>New Brunswick</value>
+          <value>NB</value>
+          <value>Nouveau-Brunswick</value>
+          <value>E</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Newfoundland and Labrador</value>
+          <value>NL</value>
+          <value>Terre-Neuve-et-Labrador</value>
+          <value>A</value>
+          <value>NFLD</value>
+        </row>
+        <row>
+          <value>Northwest Territories</value>
+          <value>NT</value>
+          <value>Territoires du Nord-Ouest</value>
+          <value>X</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Nova Scotia</value>
+          <value>NS</value>
+          <value>Nouvelle-Écosse</value>
+          <value>B</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Nunavut</value>
+          <value>NU</value>
+          <value>Nunavut</value>
+          <value>X</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Ontario</value>
+          <value>ON</value>
+          <value>Ontario</value>
+          <value>NLM</value>
+          <value>ONT</value>
+        </row>
+        <row>
+          <value>Prince Edward Island</value>
+          <value>PE</value>
+          <value>Île-du-Prince-Édouard</value>
+          <value>C</value>
+          <value></value>
+        </row>
+        <row>
+          <value>Québec</value>
+          <value>QC</value>
+          <value>Québec</value>
+          <value>JG</value>
+          <value>QUE</value>
+        </row>
+        <row>
+          <value>Saskatchewan</value>
+          <value>SK</value>
+          <value>Saskatchewan</value>
+          <value>S</value>
+          <value>SASK</value>
+        </row>
+        <row>
+          <value>Yukon</value>
+          <value>YT</value>
+          <value>Yukon</value>
+          <value>Y</value>
+          <value></value>
+        </row>
+      </rows>
+    </enum_table>
+  </extractBody>
+</extract>

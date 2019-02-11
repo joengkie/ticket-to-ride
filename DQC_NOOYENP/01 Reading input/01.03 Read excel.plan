@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Write names) --><step id="Write names" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.03 names.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,192,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Write party) --><step id="Write party" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.03 party.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,192,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (excel_input names) --><step id="excel_input names" className="com.ataccama.dqc.tasks.msoffice.excel.read.ExcelFileReader" disabled="false" mode="NORMAL">
+		<properties useModelApi="false" fileName="../data/in/excel_input.xls" startCell="D4" skipEmptyRows="false" sheetName="names">
+			<columns>
+				<columnDef name="src_full_name" type="STRING"/>
+			</columns>
+			<shadowColumns>
+				<shadowColumnDef name="pur_name" defaultExpression="&quot;full name&quot;" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="excel_input names" endpoint="out"/>
+		<target step="Write names" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (excel_input party) --><step id="excel_input party" className="com.ataccama.dqc.tasks.msoffice.excel.read.ExcelFileReader" disabled="false" mode="NORMAL">
+		<properties useModelApi="false" fileName="../data/in/excel_input.xls" startCell="A2" skipEmptyRows="false" sheetName="party">
+			<columns>
+				<columnDef name="src_name" type="STRING"/>
+				<columnDef name="src_gender" type="STRING"/>
+				<columnDef name="src_birth_date" type="STRING"/>
+				<columnDef name="src_sin" type="STRING"/>
+				<columnDef name="src_card" type="STRING"/>
+				<columnDef name="src_address" type="STRING"/>
+				<columnDef name="src_email" type="STRING"/>
+				<columnDef name="src_primary_key" type="INTEGER"/>
+				<columnDef name="meta_last_update" type="DAY"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="240,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="excel_input party" endpoint="out"/>
+		<target step="Write party" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,385,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read an excel file with two different sheets.</modelComment>
+
+
+
+<modelComment bounds="216,264,145,61" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">read the sheet &quot;party&quot;
+- read chosen columns
+ in chosen data format</modelComment>
+
+
+
+<modelComment bounds="24,264,145,61" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="51,51,51">read the sheet &quot;names&quot;
+- read all columns and
+add a shadow column</modelComment>
+
+</purity-config>

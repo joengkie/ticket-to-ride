@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extract xmlns="http://www.ataccama.com">
+	<employee>
+		<personal primary_key="1">
+			<first_name>John</first_name>
+			<last_name>Bon Jovi</last_name>
+		</personal>
+		<contact>
+			<phone>111111</phone>
+			<phone>222222</phone>
+			<email>john@gmail.com</email>		
+		</contact>
+		<address>
+			<street>Hi 123/23</street>
+			<city>Prague</city>
+			<zip>12345</zip>
+		</address>
+	</employee>
+</extract>
+|||
+<?xml version="1.0" encoding="UTF-8"?>
+<extract xmlns="http://www.ataccama.com">
+	<employee>
+		<personal primary_key="2">
+			<first_name>Maria</first_name>
+			<last_name>Perez</last_name>
+		</personal>
+		<contact>
+			<phone>333333</phone>		
+		</contact>
+		<address>
+			<street>Finger 3</street>
+			<city>NY</city>
+			<zip>7429834</zip>
+		</address>
+		<address>
+			<street>Kriz 2345/45</street>
+			<city>Prague1</city>
+			<zip>54321</zip>
+		</address>
+	</employee>
+</extract>

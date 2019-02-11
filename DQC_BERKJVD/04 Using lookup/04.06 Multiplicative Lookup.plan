@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (All cities) --><step id="All cities" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.06 Cities-all.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_province"/>
+				<textWriterColumn name="src_city"/>
+				<textWriterColumn name="add_city"/>
+				<textWriterColumn name="rd"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,384,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (All cities lookup) --><step id="All cities lookup" className="com.ataccama.dqc.tasks.clean.MultiplicativeLookupAlgorithm" disabled="false" mode="NORMAL">
+		<properties maxDifference="0" tableFileName="../data/ext/lkp/ca_province_city.lkp" prefix="false" foreignKeyColumn="src_province" bestsOnly="false" matchCondition="left(src_city,2) is left(lookup.city, 2)" recordDescriptorColumn="rd">
+			<columns>
+				<columnAssign expression="lookup.city" name="add_city"/>
+			</columns>
+			<scorer>
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="LKP_NULL_ID" explain="true" key="LKP_NULL_ID"/>
+					<scoringEntry score="0" explainAs="LKP_NOT_FOUND" explain="true" key="LKP_NOT_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND" explain="true" key="LKP_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND_DUPL" explain="true" key="LKP_FOUND_DUPL"/>
+					<scoringEntry score="0" explainAs="LKP_APPROX_USED" explain="true" key="LKP_APPROX_USED"/>
+				</scoringEntries>
+			</scorer>
+			<selectBestMatch/>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="All cities lookup" endpoint="out"/>
+		<target step="All cities" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Approx ZIP) --><step id="Approx ZIP" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.06 ZIP-approx.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_zip"/>
+				<textWriterColumn name="add_zip"/>
+				<textWriterColumn name="rd"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="432,384,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Approx ZIP lookup) --><step id="Approx ZIP lookup" className="com.ataccama.dqc.tasks.clean.MultiplicativeLookupAlgorithm" disabled="false" mode="NORMAL">
+		<properties maxDifference="1" tableFileName="../data/ext/lkp/ca_zip.lkp" prefix="false" foreignKeyColumn="src_zip" bestsOnly="false" recordDescriptorColumn="rd">
+			<columns>
+				<columnAssign expression="lookup.key" name="add_zip"/>
+			</columns>
+			<scorer>
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="LKP_NULL_ID" explain="true" key="LKP_NULL_ID"/>
+					<scoringEntry score="0" explainAs="LKP_NOT_FOUND" explain="true" key="LKP_NOT_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND" explain="true" key="LKP_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND_DUPL" explain="true" key="LKP_FOUND_DUPL"/>
+					<scoringEntry score="0" explainAs="LKP_APPROX_USED" explain="true" key="LKP_APPROX_USED"/>
+				</scoringEntries>
+			</scorer>
+			<selectBestMatch/>
+		</properties>
+		<visual-constraints bounds="432,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Approx ZIP lookup" endpoint="out"/>
+		<target step="Approx ZIP" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Best cities) --><step id="Best cities" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.06 Cities-best.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_province"/>
+				<textWriterColumn name="src_city"/>
+				<textWriterColumn name="add_city"/>
+				<textWriterColumn name="rd"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="240,384,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Best cities lookup) --><step id="Best cities lookup" className="com.ataccama.dqc.tasks.clean.MultiplicativeLookupAlgorithm" disabled="false" mode="NORMAL">
+		<properties maxDifference="0" tableFileName="../data/ext/lkp/ca_province_city.lkp" prefix="false" foreignKeyColumn="src_province" bestsOnly="true" matchCondition="left(src_city,1) is left(lookup.city, 1)" recordDescriptorColumn="rd">
+			<columns>
+				<columnAssign expression="lookup.city" name="add_city"/>
+			</columns>
+			<scorer>
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="LKP_NULL_ID" explain="true" key="LKP_NULL_ID"/>
+					<scoringEntry score="0" explainAs="LKP_NOT_FOUND" explain="true" key="LKP_NOT_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND" explain="true" key="LKP_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND_DUPL" explain="true" key="LKP_FOUND_DUPL"/>
+					<scoringEntry score="0" explainAs="LKP_APPROX_USED" explain="true" key="LKP_APPROX_USED"/>
+				</scoringEntries>
+			</scorer>
+			<selectBestMatch>
+				<orderBy expression="length(lookup.city)" orderDescending="true" nullsFirst="false"/>
+			</selectBestMatch>
+		</properties>
+		<visual-constraints bounds="240,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Best cities lookup" endpoint="out"/>
+		<target step="Best cities" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Filter first 50 values) --><step id="Filter first 50 values" className="com.ataccama.dqc.tasks.conditions.Filter" disabled="false" mode="NORMAL">
+		<properties condition="seq &lt;= 50"/>
+		<visual-constraints bounds="48,168,48,48" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Filter first 50 values" endpoint="out"/>
+		<target step="Multiplicator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Multiplicator) --><step id="Multiplicator" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="All cities lookup" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="Approx ZIP lookup" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="455,288"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="Best cities lookup" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="263,288"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (addresses) --><step id="addresses" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/addresses.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_street" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_city" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_province" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_zip" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="seq" defaultExpression="sequence(1)" type="INTEGER"/>
+				<shadowColumnDef name="add_city" type="STRING"/>
+				<shadowColumnDef name="add_zip" type="STRING"/>
+				<shadowColumnDef name="rd" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="addresses" endpoint="out"/>
+		<target step="Filter first 50 values" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,577,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use an LKP file in the Multiplicative Lookup step and write all corresponding values.</modelComment>
+
+
+
+<modelComment bounds="0,456,193,102" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Matches the province and 
+first two letters of the city 
+name on input with the LKP 
+and writes into a TXT all cities 
+satisfying this condition.</modelComment>
+
+
+
+<modelComment bounds="212,456,227,121" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Matches the province and the first
+letter of the city name on input 
+with the LKP. Out of those matched,
+writes into a TXT the best record
+according to a defined condition
+(in this example, length).</modelComment>
+
+
+
+<modelComment bounds="456,456,159,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Writes all ZIPs from LKP
+with 1 approximation.</modelComment>
+
+
+
+<modelComment bounds="216,96,361,139" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">This plan shows three different uses of the Multiplicative Lookup step.
+The steps in this example return:
+ - all corresponding values
+ - best corresponding values
+ - all corresponding values with approximation
+
+=======================
+Note: It discards part of the input for 
+demonstration purposes.</modelComment>
+
+
+
+<modelComment bounds="216,264,361,38" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Filter step is explained in tutorial 05.03 Filter.</modelComment>
+
+</purity-config>

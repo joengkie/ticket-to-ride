@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<settings>
+  <connector>
+    <saved-state stringQualifier="" lineWithColumnNames="-1" recordLength="-1" ignoredRowRegEx="" escapeSequence="" fixedSizes="true" fieldSeparator=";" stringQualifierEscapeSequence="" numberOfLinesInHeader="0" recordSeparator="\r\n" encoding="UTF-8" numberOfLinesInFooter="0">
+      <columns>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en" name="Field_0" maxWidth="-1" columnWidth="15" booleanTrueValue="1" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="0"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en" name="Field_1" maxWidth="-1" columnWidth="6" booleanTrueValue="1" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="0"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en" name="Field_2" maxWidth="-1" columnWidth="6" booleanTrueValue="1" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="0"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="STRING" dateFormatLocale="en" name="Field_3" maxWidth="-1" columnWidth="7" booleanTrueValue="1" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="0"/>
+      </columns>
+    </saved-state>
+  </connector>
+</settings>

@@ -1,0 +1,234 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<component-id>c2</component-id>
+	<icon type="5">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</icon>
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns for Gender) --><step id="Add columns for Gender" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="pur_gender" type="STRING"/>
+				<addedColumn name="std_gender" type="STRING"/>
+				<addedColumn name="out_gender" type="STRING"/>
+				<addedColumn name="exp_gender" type="STRING"/>
+				<addedColumn name="sco_gender" type="INTEGER"/>
+				<addedColumn name="tmp_gender_from_fn" type="STRING"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Add columns for Gender" endpoint="out"/>
+		<target step="Standardize gender values" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Gender heuristics) --><step id="Gender heuristics" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="pur_gender" column="out_gender">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="iif(pur_gender is in {&#39;M&#39;,&#39;F&#39;}, pur_gender, &#39;&#39;)" column="out_gender">
+					<scorer explanationColumn="exp_gender" scoreColumn="sco_gender">
+						<scoringEntries>
+							<scoringEntry score="100" explainAs="GENDER_UNKNOWN_SRC" explain="true" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="out_gender">
+					<expression>iif(out_gender is null and tmp_gender_from_fn  is not null, 
+tmp_gender_from_fn ,
+out_gender)</expression>
+					<scorer explanationColumn="exp_gender" scoreColumn="sco_gender">
+						<scoringEntries>
+							<scoringEntry score="100" explainAs="GENDER_DERIVED_FROM_NAME" explain="true" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="out_gender">
+					<expression>iif(tmp_gender_from_fn  &lt;&gt; pur_gender and 
+   pur_gender is in {&#39;M&#39;, &#39;F&#39;} and tmp_gender_from_fn  is not null,
+&#39;&#39;,
+out_gender)</expression>
+					<scorer explanationColumn="exp_gender" scoreColumn="sco_gender">
+						<scoringEntries>
+							<scoringEntry score="1000" explainAs="GENDER_MISMATCH_BETWEEN_NAME_AND_INPUT" explain="true" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="out_gender" column="std_gender">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,384,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Gender heuristics" endpoint="out"/>
+		<target step="Remove columns" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Lookup) --><step id="Lookup" className="com.ataccama.dqc.tasks.clean.LookupAlgorithm" disabled="false" mode="NORMAL">
+		<properties maxDifference="0" tableFileName="../data/ext/lkp/first_names_gender.lkp" prefix="false" foreignKeyColumn="out_first_name">
+			<columns>
+				<columnAssign expression="lookup.std_gender" name="tmp_gender_from_fn"/>
+			</columns>
+			<scorer explanationColumn="exp_gender" scoreColumn="sco_gender">
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="LKP_NULL_ID" explain="false" key="LKP_NULL_ID"/>
+					<scoringEntry score="10" explainAs="GENDER_FN_NOT_FOUND" explain="true" key="LKP_NOT_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND" explain="false" key="LKP_FOUND"/>
+					<scoringEntry score="0" explainAs="LKP_FOUND_DUPL" explain="false" key="LKP_FOUND_DUPL"/>
+					<scoringEntry score="0" explainAs="LKP_APPROX_USED" explain="false" key="LKP_APPROX_USED"/>
+				</scoringEntries>
+			</scorer>
+			<selectBestMatch/>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Lookup" endpoint="out"/>
+		<target step="Gender heuristics" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove columns) --><step id="Remove columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns/>
+			<removedColumns>
+				<columnRef name="out_first_name"/>
+				<columnRef name="pur_gender"/>
+				<columnRef name="tmp_gender_from_fn"/>
+			</removedColumns>
+		</properties>
+		<visual-constraints bounds="48,456,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove columns" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Standardize gender values) --><step id="Standardize gender values" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="src_gender" column="pur_gender">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="pur_gender">
+					<expression>tmp_gender := upper(pur_gender);
+
+case(
+	tmp_gender=&quot;M&quot;,
+	&quot;M&quot;,
+	tmp_gender=&quot;F&quot;,
+	&quot;F&quot;,
+	tmp_gender=&quot;MALE&quot;,
+	&quot;M&quot;,
+	tmp_gender=&quot;FEMALE&quot;,
+	&quot;F&quot;,
+	null	
+)</expression>
+					<scorer explanationColumn="exp_gender">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="GENDER_STANDARDIZED" explain="true" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Standardize gender values" endpoint="out"/>
+		<target step="Lookup" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="src_gender" type="STRING"/>
+				<columnDef name="out_first_name" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Add columns for Gender" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints bounds="48,528,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="264,168,409,230" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Gender values are standardized (MALE -&gt; M; FEMALE -&gt; F).
+The gender is ascertained by checking the first name 
+(identified by the cleanse name component).
+If the gender found differs from the original one, the gender output is empty.
+
+Column prefixes:
+out_ ... used for creating Golden records
+std_ ... correct values - found in the lookup files or validated by business rules
+src_ ... original values - never changed
+sco_... (integer) measure of attribute quality
+     0 ... correct at input
+     &lt;10000 ... corrected
+     &gt;=10000 ... invalid or null, cannot be used for matching or output values</modelComment>
+
+
+
+<modelComment bounds="24,24,649,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Component Goals
+The goal of this component is to cleanse gender values to be used in 09.01 Match and merge tutorial.</modelComment>
+
+</purity-config>

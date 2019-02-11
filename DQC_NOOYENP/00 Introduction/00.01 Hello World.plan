@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Hello World) --><step id="Hello World" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/00.01 Hello_World.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="312,120,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Say Hello World) --><step id="Say Hello World" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="&quot;Hello &quot; + src_full_name + &quot;!&quot;" column="pur_Hello">
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+				<assignment column="pur_word_count">
+					<expression>wordCount(src_full_name)
+
+//function returns number of words in input column src_full_name</expression>
+					<scorer>
+						<scoringEntries/>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="168,120,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Say Hello World" endpoint="out"/>
+		<target step="Hello World" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (names) --><step id="names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_full_name" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="pur_Hello" type="STRING"/>
+				<shadowColumnDef name="pur_word_count" type="INTEGER"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,120,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names" endpoint="out"/>
+		<target step="Say Hello World" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,385,87" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="51,51,51">Welcome to the DQ tutorials
+===================
+These tutorials will help you learn how to use various DQ steps.
+More information is available in the Cheat Sheets opened along with
+this tutorial.</modelComment>
+
+
+
+<modelComment bounds="48,216,313,100" borderColor="255,255,255" backgroundColor="218,218,218" foregroundColor="51,51,51">&quot;Hello World&quot; example demonstrates:
+    1. A simple transformation from a text file to a text file.
+    2. The Column Assigner step - the most general step for 
+        data transformation - and use of functions inside it. 
+    3. The use of shadow columns (see them in the
+        Text File Reader step).</modelComment>
+
+
+
+<modelComment bounds="48,336,255,8" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The step &quot;Column Assigner&quot; was used in tutorial 06.02 Column Assigner.</modelComment>
+
+</purity-config>

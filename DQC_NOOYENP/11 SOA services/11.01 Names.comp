@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<component-id>Names</component-id>
+	<icon type="5">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</icon>
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Alter Format) --><step id="Alter Format" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="std_first_name" type="STRING">
+					<comm:comment>First name found in dictionary</comm:comment>
+				</addedColumn>
+				<addedColumn name="std_last_name" type="STRING">
+					<comm:comment>Last name found in dictionary</comm:comment>
+				</addedColumn>
+				<addedColumn name="std_title" type="STRING"/>
+				<addedColumn name="pat_full_name" type="STRING">
+					<comm:comment>Pattern found in iput name</comm:comment>
+				</addedColumn>
+				<addedColumn name="pur_first_name_orig" type="STRING">
+					<comm:comment>Possible first name. If found in dictionary also in std_first_name.</comm:comment>
+				</addedColumn>
+				<addedColumn name="pur_last_name_orig" type="STRING">
+					<comm:comment>Possible last name. If found in dictionary also in std_last_name.</comm:comment>
+				</addedColumn>
+				<addedColumn name="sco_full_name" type="INTEGER">
+					<comm:comment>Score indicating quality of input name (0 = perfect)</comm:comment>
+				</addedColumn>
+				<addedColumn name="exp_full_name" type="STRING">
+					<comm:comment>Clearing codes for name.</comm:comment>
+				</addedColumn>
+				<addedColumn name="pur_full_name_DQ_status" type="STRING">
+					<comm:comment>DQ status of name.</comm:comment>
+				</addedColumn>
+				<addedColumn name="pur_full_name_status" type="STRING"/>
+				<addedColumn name="pur_initial" type="STRING"/>
+				<addedColumn name="pur_middle_first_name" type="STRING"/>
+				<addedColumn name="pur_middle_last_name" type="STRING"/>
+				<addedColumn name="pur_last_name_prefix" type="STRING"/>
+				<addedColumn name="trash_full_name" type="STRING"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="144,96,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Alter Format" endpoint="out"/>
+		<target step="Remove titles" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Capitalize orig) --><step id="Capitalize orig" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="capitalize(pur_first_name_orig )" column="pur_first_name_orig">
+					<scorer explanationColumn="exp_full_name" scoreColumn="sco_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="capitalize(pur_last_name_orig)" column="pur_last_name_orig">
+					<scorer explanationColumn="exp_full_name" scoreColumn="sco_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="72,192,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Capitalize orig" endpoint="out"/>
+		<target step="DQ status" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (DQ status) --><step id="DQ status" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment column="pur_full_name_DQ_status">
+					<expression>case(
+  sco_full_name = 0 and
+  pat_full_name = &quot;F! L!&quot;,
+   		&quot;NAME_OK&quot;,
+  sco_full_name &lt; 10000,
+  		&quot;NAME_CORRECTED&quot;,
+  find(@&quot;\d&quot;,pur_full_name) or wordCount(pur_full_name)&lt;2,
+  		&quot;NAME_INVALID&quot;,
+  src_full_name is null,
+  		&quot;NAME_INVALID&quot;,
+  //other		
+  		&quot;NAME_UNDECIDED&quot;
+)</expression>
+					<scorer explanationColumn="tmp_expl" scoreColumn="tmp_score">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+					<comm:comment>Assign Data Quality status of the source name.
+NAME_OK = input name is in the form F! L! (means both first name and last name were found in dictionary) and the first name precedes the last name.
+NAME_CORRECTED = minor corrections were made to the source - removing titles, changing word order etc.
+NAME_UNDECIDED = the name should be checked manually.
+NAME_INVALID = the source name contains invalid characters or only one word.
+NAME_MISSING = empty input</comm:comment>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="168,192,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="DQ status" endpoint="out"/>
+		<target step="Name_status" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Name_status) --><step id="Name_status" className="com.ataccama.dqc.tasks.scoring.SimpleScoring" disabled="false" mode="NORMAL">
+		<properties defaultScoreColumn="tmp_score" defaultExplainColumn="pur_full_name_status">
+			<scoringCases>
+				<scoringCase condition="sco_full_name &lt; 10000" explanation="&quot;OK&quot;" score="0"/>
+				<scoringCase condition="sco_full_name &gt;=10000" explanation="&quot;NOK&quot;" score="0"/>
+				<comm:comment>Assign attribute status:
+
+OK = solved automatically
+NOK = to be solved manually</comm:comment>
+			</scoringCases>
+		</properties>
+		<visual-constraints bounds="264,192,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Name_status" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Parse names) --><step id="Parse names" className="com.ataccama.dqc.tasks.clean.GuessNameSurnameAlgorithm" disabled="false" mode="NORMAL">
+		<properties interlacedWordDefinition="{INTERLACED_WORD}" lastName="std_last_name" proposalSelectionStrategy="DISTANCE_BASED" lastNameLookupFileName="../data/ext/lkp/last_names.lkp" multiWordDefinition="{MULTIWORD:wordSeparators=&quot;-&#39;`&quot;&quot;~&quot;}" preserveIfDiffers="PRESERVE_NONE" multiWordSeparators=" " in="pur_full_name" wordDefinition="{WORD}" fullTrashScope="false" trash="trash_full_name" lastNameOrig="pur_last_name_orig" firstNameOrig="pur_first_name_orig" firstNameLookupFileName="../data/ext/lkp/first_names.lkp" firstName="std_first_name" patternName="pat_full_name">
+			<components>
+				<component definition="{WORD:minLength=1,maxLength=1}" storeParsedInto="pur_initial" name="INITIAL">
+					<scorer explanationColumn="exp_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="PPV_MISMATCH" explain="false" key="PPV_MISMATCH"/>
+						</scoringEntries>
+					</scorer>
+					<comm:comment>{NUMBER:acceptSeparators=false,minLength=6,maxLength=6}</comm:comment>
+				</component>
+				<component definition="{WORD:minLength=2}" storeParsedInto="pur_middle_first_name" name="MIDDLE_FIRST_NAME">
+					<scorer explanationColumn="exp_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="GPV_MISMATCH" explain="false" key="PPV_MISMATCH"/>
+						</scoringEntries>
+					</scorer>
+					<verifier maxErrors="0" wordSeparators=" " fileName="../data/ext/lkp/first_names.lkp" maxErrorRatio="1.0"/>
+				</component>
+				<component definition="{WORD:minLength=2}" storeParsedInto="pur_middle_last_name" name="MIDDLE_LAST_NAME">
+					<scorer explanationColumn="exp_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="GPV_MISMATCH" explain="false" key="PPV_MISMATCH"/>
+						</scoringEntries>
+					</scorer>
+					<verifier maxErrors="0" wordSeparators=" " fileName="../data/ext/lkp/last_names.lkp" maxErrorRatio="1.0"/>
+				</component>
+				<component definition="{WORD:minLength=2,maxLength=3}" storeParsedInto="pur_last_name_prefix" name="LAST_NAME_PREF">
+					<scorer explanationColumn="exp_full_name">
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="GPV_MISMATCH" explain="false" key="PPV_MISMATCH"/>
+						</scoringEntries>
+					</scorer>
+					<verifier maxErrors="0" wordSeparators=" " fileName="../data/ext/lkp/last_names_prefix.lkp" maxErrorRatio="1.0"/>
+				</component>
+			</components>
+			<hints/>
+			<patternGroups>
+				<patternGroup>
+					<patterns>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME!}" priority="0" name="F! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME!} {INITIAL}" priority="0" name="F! L! I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="F! LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {LAST_NAME!}" priority="0" name="F! I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {INITIAL} {LAST_NAME!}" priority="0" name="F! I I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="F! I LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {FIRST_NAME!}" priority="0" name="L! F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {LAST_NAME_PREF!} {FIRST_NAME!}" priority="0" name="L! LP! F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {FIRST_NAME!} {INITIAL}" priority="0" name="L! F! I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {INITIAL} {FIRST_NAME!}" priority="0" name="L! I F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {INITIAL}" priority="0" name="L! I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {FIRST_NAME!} {LAST_NAME!}" priority="0" name="I F! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {FIRST_NAME!} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="I F! LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {LAST_NAME!}" priority="0" name="I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="I LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {INITIAL} {LAST_NAME!}" priority="0" name="I I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {INITIAL} {FIRST_NAME!}" priority="0" name="I I F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {INITIAL} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="I I LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+					</patterns>
+				</patternGroup>
+				<patternGroup>
+					<patterns>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_FIRST_NAME!} {LAST_NAME!}" priority="0" name="F! MF! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!}-{MIDDLE_FIRST_NAME!} {LAST_NAME!}" priority="0" name="F!-MF! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_FIRST_NAME!} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="F! MF! LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME!} {LAST_NAME!}" priority="0" name="F! ML! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME!} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="F! ML! LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {MIDDLE_LAST_NAME!} {LAST_NAME!}" priority="0" name="F! I ML! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME!}-{LAST_NAME!}" priority="0" name="F! ML!-L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME!}-{LAST_NAME}" priority="0" name="F! ML!-L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {MIDDLE_LAST_NAME!}-{LAST_NAME!}" priority="0" name="F! I ML!-L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_FIRST_NAME} {LAST_NAME!}" priority="0" name="F! MF L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_FIRST_NAME!} {LAST_NAME}" priority="0" name="F! MF! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME} {LAST_NAME!}" priority="0" name="F! ML L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME}-{LAST_NAME!}" priority="0" name="F! ML-L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {MIDDLE_LAST_NAME!} {LAST_NAME!}" priority="0" name="I ML! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {MIDDLE_LAST_NAME} {LAST_NAME!}" priority="0" name="I ML L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {MIDDLE_LAST_NAME!} {LAST_NAME}" priority="0" name="I ML! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {INITIAL} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="I I LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {INITIAL} {LAST_NAME_PREF!} {LAST_NAME}" priority="0" name="I I LP! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {MIDDLE_LAST_NAME} {LAST_NAME}" priority="0" name="F! ML L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+					</patterns>
+				</patternGroup>
+				<patternGroup>
+					<patterns>
+						<pattern definition="{FIRST_NAME} {LAST_NAME!}" priority="0" name="F L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME} {LAST_NAME!} {INITIAL}" priority="0" name="F L! I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME} {LAST_NAME_PREF!} {LAST_NAME!}" priority="0" name="F LP! L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME} {INITIAL} {LAST_NAME!}" priority="0" name="F I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME} {INITIAL} {INITIAL} {LAST_NAME!}" priority="0" name="F I I L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {FIRST_NAME}" priority="0" name="L! F">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {LAST_NAME_PREF!} {FIRST_NAME}" priority="0" name="L! LP! F">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {FIRST_NAME} {INITIAL}" priority="0" name="L! F I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME!} {INITIAL} {FIRST_NAME}" priority="0" name="L! I F">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {FIRST_NAME} {LAST_NAME!}" priority="0" name="I F L!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<comm:comment>Unknown first name</comm:comment>
+					</patterns>
+				</patternGroup>
+				<patternGroup>
+					<patterns>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME}" priority="0" name="F! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME} {INITIAL}" priority="0" name="F! L I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {LAST_NAME_PREF!} {LAST_NAME}" priority="0" name="F! LP! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {LAST_NAME}" priority="0" name="F! I L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME!} {INITIAL} {INITIAL} {LAST_NAME}" priority="0" name="F! I I L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME} {FIRST_NAME!}" priority="0" name="L F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME} {LAST_NAME_PREF!} {FIRST_NAME!}" priority="0" name="L LP! F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME} {FIRST_NAME!} {INITIAL}" priority="0" name="L F! I">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{LAST_NAME} {INITIAL} {FIRST_NAME!}" priority="0" name="L I F!">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{INITIAL} {FIRST_NAME!} {LAST_NAME}" priority="0" name="I F! L">
+							<comm:comment>---------------------------------------------------------------------------------------------------</comm:comment>
+						</pattern>
+						<pattern definition="{FIRST_NAME}{MIDDLE_FIRST_NAME}{LAST_NAME}" priority="0" name="F M L"/>
+						<comm:comment>Unkown last name</comm:comment>
+					</patterns>
+				</patternGroup>
+				<patternGroup>
+					<patterns>
+						<pattern definition="{FIRST_NAME}{MIDDLE_FIRST_NAME}{LAST_NAME}" priority="0" name="F M L"/>
+						<pattern definition="{FIRST_NAME}{INITIAL}.{LAST_NAME}" priority="0" name="F I. L"/>
+					</patterns>
+				</patternGroup>
+			</patternGroups>
+			<scorer explanationColumn="exp_full_name" scoreColumn="sco_full_name">
+				<scoringEntries>
+					<scoringEntry score="10000" explainAs="NAME_NAME_NO_PATTERN" explain="true" key="NM_NO_PATTERN"/>
+					<scoringEntry score="10000" explainAs="NAME_PART_PATTERN" explain="true" key="NM_PART_PATTERN"/>
+					<scoringEntry score="10000" explainAs="NAME_MORE_PATTERNS" explain="true" key="NM_MORE_PATTERNS"/>
+					<scoringEntry score="0" explainAs="NM_DIFFERENT" explain="false" key="NM_DIFFERENT"/>
+					<scoringEntry score="0" explainAs="NM_HINT" explain="false" key="NM_HINT"/>
+					<scoringEntry score="0" explainAs="NM_TRASH" explain="false" key="NM_TRASH"/>
+					<scoringEntry score="0" explainAs="NAME_NULL" explain="true" key="NM_NULL"/>
+				</scoringEntries>
+			</scorer>
+			<tokenizerConfig whiteSpaceDefinition="[:white:]">
+				<types>
+					<tokenType tokenStartCharacters="[:letter:]" tokenCharacters="[:letter:]"/>
+					<tokenType tokenStartCharacters="[:digit:]" tokenCharacters="[:digit:]"/>
+				</types>
+			</tokenizerConfig>
+		</properties>
+		<visual-constraints bounds="336,96,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Parse names" endpoint="out"/>
+		<target step="Capitalize orig" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="431,120"/>
+				<point location="431,182"/>
+				<point location="47,182"/>
+				<point location="47,216"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Remove titles) --><step id="Remove titles" className="com.ataccama.dqc.tasks.clean.StripTitlesAlgorithm" disabled="false" mode="NORMAL">
+		<properties titleLookupFileName="../data/ext/lkp/titles.lkp" preserveUnsupportedChars="true" titlesOut="std_title" in="pur_full_name" separator=" " out="pur_full_name" minWordCount="0">
+			<scorer explanationColumn="exp_full_name" scoreColumn="sco_full_name">
+				<scoringEntries>
+					<scoringEntry score="1" explainAs="TITLE_EXTRACTED" explain="true" key="ST_CHANGED"/>
+				</scoringEntries>
+			</scorer>
+			<tokenizer whiteSpaceDefinition="[:white:]">
+				<types>
+					<tokenType tokenStartCharacters="[:letter:]" tokenCharacters="[:letter:]"/>
+					<tokenType tokenStartCharacters="[:digit:]" tokenCharacters="[:digit:]"/>
+				</types>
+			</tokenizer>
+		</properties>
+		<visual-constraints bounds="240,96,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Remove titles" endpoint="out"/>
+		<target step="Parse names" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (in) --><step id="in" className="com.ataccama.dqc.tasks.common.usersteps.io.InputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<columns>
+				<columnDef name="src_full_name" type="STRING">
+					<comm:comment>Input name.</comm:comment>
+				</columnDef>
+			</columns>
+			<shadowColumns>
+				<shadowColumnDef name="pur_full_name" defaultExpression="src_full_name " type="STRING"/>
+				<shadowColumnDef name="tmp_score" type="INTEGER"/>
+				<shadowColumnDef name="tmp_expl" type="STRING"/>
+			</shadowColumns>
+			<comm:comment>Expects one column containing input names.</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="in" endpoint="out"/>
+		<target step="Alter Format" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.common.usersteps.io.OutputStep" disabled="false" mode="NORMAL">
+		<properties>
+			<requiredColumns/>
+		</properties>
+		<visual-constraints bounds="360,192,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<modelComment bounds="24,288,529,214" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">It is not possible to run this file, because it is not a plan, but only a
+                             COMPONENT.
+
+Components can be used in two modes:
+        batch - example 11.02 shows using a component in a plan
+        online - example 11.03 defines an online service
+
+Open 11.03 and start the online service by clicking the RUN button.
+Then open Web Service Tester (11.04) and type a name into the src_full_name element.
+To show the Web Service Console click the blue button next to the Web Service Tester.
+
+To stop the online service, click the red button on the console.</modelComment>
+
+
+
+<modelComment bounds="24,24,481,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Component Goals
+The goal of this component is to parse names to be used in the 11.02 Batch Names tutorial.</modelComment>
+
+</purity-config>

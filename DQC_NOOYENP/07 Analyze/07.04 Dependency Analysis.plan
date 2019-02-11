@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Profiling) --><step id="Profiling" className="com.ataccama.dqc.tasks.profiling.ProfilingAlgorithm" disabled="false" mode="NORMAL">
+		<properties defaultLocale="en_US" outputFile="../data/out/07.04 Dependency Analysis.profile" threaded="true" outputLimit="1000">
+			<domains>
+				<customs/>
+				<datetime active="true" threshold="80"/>
+				<enum active="true" valueCountLimit="20"/>
+				<numeric active="true" threshold="80"/>
+				<pattern patternCountLimit="10" active="true"/>
+				<specval gradientThreshold="100" active="true"/>
+			</domains>
+			<fkAnalysis/>
+			<inputs>
+				<profilingInput name="in" drillThrough="false">
+					<businessRules/>
+					<dataToProfile>
+						<profiledData expression="src_customer_id" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_customer_name" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_collateral_type" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_date_created" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_date_last_control" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_date_next_control" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_secured_value_pct" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_collateral_currency" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_collateral_value" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_secured_currency" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_secured_value" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_type" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+						<profiledData expression="src_source_country" maskName="characters" analyseDomain="true">
+							<frequencyAnalysis calculate="true"/>
+							<groupSizeAnalysis calculate="true"/>
+							<standardStats extremes="5" quantiles="10" calculate="true" calculateAggregated="true"/>
+						</profiledData>
+					</dataToProfile>
+					<dependencies>
+						<dependencyAnalysis name="ID defines NAME">
+							<dependants>
+								<dependant expression="src_customer_name" threshold="90"/>
+							</dependants>
+							<determinant>
+								<keyComponent expression="src_customer_id"/>
+							</determinant>
+						</dependencyAnalysis>
+					</dependencies>
+					<pkAnalysis/>
+					<rollUps/>
+				</profilingInput>
+			</inputs>
+			<masks>
+				<maskCfg name="characters" copyOther="true">
+					<characterGroups>
+						<characterGroup symbol="L" characters="[:letter:]"/>
+						<characterGroup symbol="D" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+				<maskCfg name="words" copyOther="true">
+					<characterGroups>
+						<characterGroup repeatedThreshold="2" symbol="L" repeatedSymbol="W" characters="[:letter:]"/>
+						<characterGroup repeatedThreshold="2" symbol="D" repeatedSymbol="N" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+				<maskCfg name="case_sensitive" copyOther="true">
+					<characterGroups>
+						<characterGroup symbol="L" characters="[:lowercase:]"/>
+						<characterGroup symbol="U" characters="[:uppercase:]"/>
+						<characterGroup symbol="D" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+				<maskCfg name="mask_digits" copyOther="true">
+					<characterGroups>
+						<characterGroup symbol="D" characters="[:digit:]"/>
+					</characterGroups>
+				</maskCfg>
+			</masks>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="48,96,48,48" layout="vertical"/>
+	</step>
+
+
+
+<!-- (customers) --><step id="customers" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/customers.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="">
+			<columns>
+				<textReaderColumn name="src_customer_id" type="INTEGER" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+				<textReaderColumn name="src_customer_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_type" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_date_created" type="DAY" ignore="false">
+					<dataFormatParameters dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_date_last_control" type="DAY" ignore="false">
+					<dataFormatParameters dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_date_next_control" type="DAY" ignore="false">
+					<dataFormatParameters dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_secured_value_pct" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_currency" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_value" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_secured_currency" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_secured_value" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_type" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_source_country" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="false" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="false" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,24,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="customers" endpoint="out"/>
+		<target step="Profiling" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="48,168,553,166" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">This sample shows a simple use of the Dependency Analysis functionality. 
+It examines whether a value in one column (the Dependant) is dependent on the value
+of another column or set of columns (the Determinant). In other words, whether records
+with a given Determinant value all share the same Dependant value(s).
+
+In this case we examine whether src_customer_name is dependent on src_customer_id.
+We would expect this to be the case, since src_customer_id should uniquely identify
+the customer and therefore his src_customer_name.
+
+If you enable Drill-through before running the plan you can then examine which
+particular records violate the dependency in the resulting Profile (Dependency tab).
+</modelComment>
+
+
+
+<modelComment bounds="48,-48,481,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to analyse dependency between customer id and customer name</modelComment>
+
+</purity-config>

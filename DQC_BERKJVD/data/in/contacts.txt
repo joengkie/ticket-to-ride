@@ -1,0 +1,19 @@
+user_id;contact_type;contact_value
+;www;http://www.amazon.com
+56;phone;+132 879 931
+42;email;donette36@hotmail.com
+43;phone;+148-853-773
+44;email;laverne.clumpner@email.ca
+42;phone;+170899889
+64;email;karen-harmeyer@writeme.com
+47;phone;+198 674 80 
+48;phone;+118 781 529
+50;phone;+4050700809
+50;email;thomask@emailfast.com
+51;www;http://bonanni.blogspot.com
+54;phone;+3469912146
+55;email;mattie.razza@catlovers.com
+57;email;l.jacinto@freeonline.com
+42;www;www.donette.ca
+;email;no-reply@hotmail.com
+56;email;halpain.vania@gmail.com

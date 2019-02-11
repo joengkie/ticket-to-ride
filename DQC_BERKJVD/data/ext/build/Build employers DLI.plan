@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Dictionary Lookup Builder) --><step id="Dictionary Lookup Builder" className="com.ataccama.dqc.tasks.addresses.dictionary.DictionaryLookupBuilder" disabled="false" mode="NORMAL">
+		<properties>
+			<componentMappings>
+				<componentMapping column="First_name" componentId="first_name"/>
+				<componentMapping column="Last_name" componentId="last_name"/>
+				<componentMapping column="Gender" componentId="gender"/>
+				<componentMapping column="Number_of_employees" componentId="number_of_empl"/>
+				<componentMapping column="Year_of_birth" componentId="year_of_birth"/>
+				<componentMapping column="Id" componentId="key"/>
+			</componentMappings>
+			<referenceData folder="../lkp/employers_DLB" primaryKeyComponentId="key" createWordLookups="false">
+				<components>
+					<entityComponent id="key" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+					<entityComponent id="first_name" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+					<entityComponent id="last_name" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+					<entityComponent id="gender" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+					<entityComponent id="number_of_empl" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+					<entityComponent id="year_of_birth" class="com.ataccama.dqc.addresses.commons.model.components.DictionaryEntityComponent"/>
+				</components>
+				<matchingValue substituteWith=" " doRemoveRepeatedChars="false" doSqueezeWS="false" supportedCharacters="[:letter:][:digit:]" doRemoveDia="false" doUpperCase="false"/>
+				<supportingVectors>
+					<supportingVectorDefinition name="fname_lname">
+						<inComponents>
+							<entityComponentReference id="first_name"/>
+							<entityComponentReference id="last_name"/>
+						</inComponents>
+					</supportingVectorDefinition>
+					<supportingVectorDefinition name="fname_lname_numempl">
+						<inComponents>
+							<entityComponentReference id="first_name"/>
+							<entityComponentReference id="last_name"/>
+							<entityComponentReference id="number_of_empl"/>
+						</inComponents>
+					</supportingVectorDefinition>
+					<supportingVectorDefinition name="fname_gender">
+						<inComponents>
+							<entityComponentReference id="first_name"/>
+							<entityComponentReference id="gender"/>
+						</inComponents>
+					</supportingVectorDefinition>
+					<supportingVectorDefinition name="lname_yearbirth">
+						<inComponents>
+							<entityComponentReference id="last_name"/>
+							<entityComponentReference id="year_of_birth"/>
+						</inComponents>
+					</supportingVectorDefinition>
+				</supportingVectors>
+				<tokenizerConfig whiteSpaceDefinition="[:white:]" class="com.ataccama.dqc.tasks.common.parse.ConfigurableTokenizerConfig">
+					<types>
+						<tokenType tokenStartCharacters="[:letter:]" tokenCharacters="[:letter:]"/>
+						<tokenType tokenStartCharacters="[:digit:]" tokenCharacters="[:digit:]"/>
+					</types>
+				</tokenizerConfig>
+			</referenceData>
+		</properties>
+		<visual-constraints bounds="72,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (employers) --><step id="employers" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/employers.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="Id" type="STRING" ignore="false"/>
+				<textReaderColumn name="First_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="Last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="Gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="Number_of_employees" type="STRING" ignore="false"/>
+				<textReaderColumn name="Year_of_birth" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="72,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="employers" endpoint="out"/>
+		<target step="Dictionary Lookup Builder" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,457,50" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to generate LKP files for use in DLI.</modelComment>
+
+
+
+<modelComment bounds="264,96,193,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate LKP files with information
+about employers</modelComment>
+
+</purity-config>

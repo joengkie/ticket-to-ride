@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Xml Writer) --><step id="Xml Writer" className="com.ataccama.dqc.tasks.io.xml.write.XmlWriter" disabled="false" mode="NORMAL">
+		<properties indent="true" fileName="../data/out/02.04 XML_output.xml" encoding="UTF-8">
+			<dataStreams>
+				<xmlWriterDataStream name="in">
+					<xmlFragment>&lt;party&gt;
+	&lt;primary_key&gt;{src_primary_key}&lt;/primary_key&gt;
+	&lt;party_details&gt;
+		&lt;name&gt;{src_name}&lt;/name&gt;
+		&lt;gender&gt;{src_gender}&lt;/gender&gt;
+		&lt;birth_day&gt;{src_birth_date}&lt;/birth_day&gt;
+		&lt;address&gt;{src_address}&lt;/address&gt;
+		&lt;email&gt;{src_email}&lt;/email&gt;
+		&lt;last_update&gt;{meta_last_update}&lt;/last_update&gt;
+	&lt;/party_details&gt;
+&lt;/party&gt;</xmlFragment>
+				</xmlWriterDataStream>
+			</dataStreams>
+			<fileTemplate>&lt;p:extract xmlns:p=&quot;http://http://www.ataccama.com&quot;&gt;
+	&lt;extractHeader&gt;
+		&lt;type_of_records&gt;PARTY&lt;/type_of_records&gt;
+		&lt;date&gt;2012-12-12&lt;/date&gt;
+	&lt;/extractHeader&gt;
+	&lt;extractBody&gt;
+		&lt;dataStream name=&quot;in&quot;/&gt;
+	&lt;/extractBody&gt;
+&lt;/p:extract&gt;</fileTemplate>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (party) --><step id="party" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/party.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_birth_date" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_sin" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_card" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_address" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_email" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_primary_key" type="STRING" ignore="false"/>
+				<textReaderColumn name="meta_last_update" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="party" endpoint="out"/>
+		<target step="Xml Writer" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,385,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to save input as an xml file.</modelComment>
+
+</purity-config>

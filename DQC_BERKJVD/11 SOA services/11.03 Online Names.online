@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ServiceConfig version="10.6.2.ga-2017-03-03">
+  
+
+
+
+
+
+
+<services>
+    <serviceBean configFile="./11.01 Names.comp" maxPoolSize="5" name="clr_names" minPoolSize="1" parallelismLevel="1">
+      <additionalActions/>
+      <method location="/clr_names" soapAction="clr_names" class="com.ataccama.dqc.online.cfg.SoapOverHttpMethod" soapVersion="SOAP11">
+        <inputFormat schemaValidation="false" namespace="www.examples.com/namespace">
+          <rootSection stepId="in">
+            <columns>
+              <xmlColumn xmlName="src_full_name" name="src_full_name" strategy="NILLABLE_ELEM" type="STRING"/>
+            </columns>
+            <sections/>
+          </rootSection>
+        </inputFormat>
+        <outputFormat namespace="www.ataccama.com/OnlineServices">
+          <rootSection stepId="out">
+            <columns>
+              <xmlOutputColumn xmlName="src_full_name" nullHandling="ERROR" name="src_full_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pur_full_name" nullHandling="ERROR" name="pur_full_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pur_first_name_orig" nullHandling="ERROR" name="pur_first_name_orig" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pur_last_name_orig" nullHandling="ERROR" name="pur_last_name_orig" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="std_first_name" nullHandling="ERROR" name="std_first_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="std_last_name" nullHandling="ERROR" name="std_last_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="std_titles_prefix" nullHandling="ERROR" name="std_title" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pat_full_name" nullHandling="ERROR" name="pat_full_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="score_full_name" nullHandling="ERROR" name="sco_full_name" strategy="NILLABLE_ELEM" type="INTEGER"/>
+              <xmlOutputColumn xmlName="exp_full_name" nullHandling="ERROR" name="exp_full_name" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pur_full_name_DQ_status" nullHandling="ERROR" name="pur_full_name_DQ_status" strategy="NILLABLE_ELEM" type="STRING"/>
+              <xmlOutputColumn xmlName="pur_full_name_status" nullHandling="ERROR" name="pur_full_name_status" strategy="NILLABLE_ELEM" type="STRING"/>
+            </columns>
+            <sections/>
+          </rootSection>
+        </outputFormat>
+      </method>
+    </serviceBean>
+  </services>
+</ServiceConfig>

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Jdbc Reader) --><step id="Jdbc Reader" className="com.ataccama.dqc.tasks.io.jdbc.read.JdbcReader" disabled="false" mode="NORMAL">
+		<properties queryString="select ID, NAME from &quot;NAMES&quot;" dataSourceName="DB">
+			<columns>
+				<jdbcReaderColumn name="ID" type="LONG"/>
+				<jdbcReaderColumn name="NAME" type="STRING"/>
+			</columns>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Jdbc Reader" endpoint="out"/>
+		<target step="Write names" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Write names) --><step id="Write names" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/01.02 names.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="24,24,457,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to read names from the table &quot;names&quot; and save them as a text file.</modelComment>
+
+
+
+<modelComment bounds="216,96,241,61" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,51,51">You need a database connection named DB. 
+To create the table &quot;names,&quot; run tutorial 
+02.02 Write data to DB.</modelComment>
+
+</purity-config>

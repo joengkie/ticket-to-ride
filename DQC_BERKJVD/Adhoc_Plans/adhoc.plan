@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Filter) --><step id="Filter" className="com.ataccama.dqc.tasks.conditions.Filter" disabled="false" mode="NORMAL">
+		<properties condition="src_collateral_currency = &#39;CZK&#39;"/>
+		<visual-constraints bounds="216,216,48,48" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Filter" endpoint="out"/>
+		<target step="out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (customers) --><step id="customers" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/customers.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="">
+			<columns>
+				<textReaderColumn name="src_customer_id" type="INTEGER" ignore="false">
+					<dataFormatParameters thousandsSeparator="" decimalSeparator="."/>
+				</textReaderColumn>
+				<textReaderColumn name="src_customer_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_type" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_date_created" type="STRING" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_date_last_control" type="STRING" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_date_next_control" type="STRING" ignore="false">
+					<dataFormatParameters thousandsSeparator="" dateFormatLocale="en_US" dayFormat="yyyy-MM-dd"/>
+				</textReaderColumn>
+				<textReaderColumn name="src_secured_value_pct" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_currency" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_collateral_value" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_secured_currency" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_secured_value" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_type" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_source_country" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="216,72,32,32" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="customers" endpoint="out"/>
+		<target step="Filter" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (out) --><step id="out" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/test.txt" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="216,360,48,48" layout="vertical"/>
+	</step>
+
+</purity-config>

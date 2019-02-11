@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extract xmlns="http://www.ataccama.com">
+	<extractHeader>
+		<type_of_records>PARTY</type_of_records>
+		<number_of_records>3</number_of_records>
+		<date>2012-12-12</date>
+	</extractHeader>
+	<extractBody>
+		<client primary_key="1">
+			<basic_data>
+				<customer_type>P</customer_type>
+				<personal_data>
+					<sin>000000000</sin>
+					<name>Dr. John Smith</name>
+					<gender>M</gender>
+					<birth_date>12/16/1978</birth_date>
+					<card>88682239496</card>
+				</personal_data>
+				<address>
+					<street>8500 Leslie</street>
+					<city>Toronto</city>
+					<province>Ontario</province>
+					<zip>L3T7M8</zip>
+				</address>
+				<contact>
+					<cont_type>email</cont_type>
+					<cont_value>john.smith@.com</cont_value>
+				</contact>
+			</basic_data>
+			<specific_data>
+				<meta_last_updated>2006/12/06</meta_last_updated>
+			</specific_data>
+		</client>
+		<client primary_key="2">
+			<basic_data>
+				<customer_type>P</customer_type>
+				<personal_data>
+					<sin>095-242-434</sin>
+					<name>Smith W. John</name>
+					<gender>M</gender>
+					<birth_date>16.12.1978</birth_date>
+					<card>266805807984498</card>
+				</personal_data>
+				<address>
+					<street>128 Yonge St</street>
+					<city>Tronto</city>
+					<province>ON</province>
+					<zip>M5C1XX</zip>
+				</address>
+				<address>
+					<street>25 Linden Str</street>
+					<city>TORONNTO</city>
+					<province></province>
+					<zip></zip>
+				</address>
+				<contact>
+					<cont_type>email</cont_type>
+					<cont_value>john.w.smith@gmail.com</cont_value>
+				</contact>
+				<contact>
+					<cont_type>email</cont_type>
+					<cont_value>aaa</cont_value>
+				</contact>
+				<contact>
+					<cont_type>phone</cont_type>
+					<cont_value>12345</cont_value>
+				</contact>
+			</basic_data>
+			<specific_data>
+				<meta_last_updated>2007/04/15</meta_last_updated>
+			</specific_data>
+		</client>
+		<client primary_key="3">
+			<basic_data>
+				<customer_type>P</customer_type>
+				<personal_data>
+					<sin>SIN095242434</sin>
+					<name>John William Smith</name>
+					<gender></gender>
+					<birth_date>781216</birth_date>
+					<card></card>
+				</personal_data>
+				<address>
+					<street>128 St John St</street>
+					<city>St John</city>
+					<province>NB</province>
+					<zip></zip>
+				</address>
+			</basic_data>
+			<specific_data>
+				<meta_last_updated>2009/06/28</meta_last_updated>
+			</specific_data>
+		</client>				
+	</extractBody>
+</extract>

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<settings>
+  <connector>
+    <saved-state lineWithColumnNames="1" recordLength="-1" ignoredRowRegEx="" escapeSequence="" fixedSizes="false" fieldSeparator=";" numberOfLinesInHeader="1" recordSeparator="\r\n" encoding="UTF-8" numberOfLinesInFooter="0">
+      <columns>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="integer" dateFormatLocale="en_US" name="src_customer_id" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_customer_name" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_collateral_type" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="day" dateFormatLocale="en_US" name="src_date_created" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" dateFormat="yyyy-MM-dd" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="day" dateFormatLocale="en_US" name="src_date_last_control" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" dateFormat="yyyy-MM-dd" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="day" dateFormatLocale="en_US" name="src_date_next_control" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" dateFormat="yyyy-MM-dd" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_secured_value_pct" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_collateral_currency" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_collateral_value" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_secured_currency" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_secured_value" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_type" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+        <textColumnMetaData maxDecimalPlaces="0" dataType="string" dateFormatLocale="en_US" name="src_source_country" maxWidth="-1" columnWidth="0" booleanTrueValue="true" useInReaderOut="true" numberGroupSeparator="" decimalSeparator="." booleanFalseValue="false"/>
+      </columns>
+    </saved-state>
+  </connector>
+</settings>

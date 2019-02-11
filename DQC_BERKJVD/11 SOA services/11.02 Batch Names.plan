@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Add columns) --><step id="Add columns" className="com.ataccama.dqc.tasks.flow.AlterFormat" disabled="false" mode="NORMAL">
+		<properties>
+			<addedColumns>
+				<addedColumn name="pur_first_name_orig" type="STRING"/>
+				<addedColumn name="pur_last_name_orig" type="STRING"/>
+				<addedColumn name="std_title" type="STRING"/>
+				<addedColumn name="std_first_name" type="STRING"/>
+				<addedColumn name="std_last_name" type="STRING"/>
+				<addedColumn name="pat_full_name" type="STRING"/>
+				<addedColumn name="exp_full_name" type="STRING"/>
+				<addedColumn name="sco_full_name" type="INTEGER"/>
+				<addedColumn name="pur_full_name_DQ_status" type="STRING"/>
+				<addedColumn name="pur_full_name_status" type="STRING"/>
+				<addedColumn name="pur_middle_first_name" type="STRING"/>
+				<addedColumn name="pur_initial" type="STRING"/>
+				<addedColumn name="pur_full_name" type="STRING"/>
+				<addedColumn name="tmp_score" type="INTEGER"/>
+				<addedColumn name="tmp_expl" type="STRING"/>
+				<addedColumn name="pur_middle_last_name" type="STRING"/>
+				<addedColumn name="pur_last_name_prefix" type="STRING"/>
+				<addedColumn name="trash_full_name" type="STRING"/>
+			</addedColumns>
+			<removedColumns/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Add columns" endpoint="out"/>
+		<target step="Component" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Component) --><component id="Component" disabled="false" mode="NORMAL">
+		<properties fileName="11.01 Names.comp">
+			<mappings>
+				<mappingEndPoint name="in">
+					<columnMappings>
+						<columnsMapping to="src_full_name" from="src_full_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+				<mappingEndPoint name="out">
+					<columnMappings>
+						<columnsMapping to="pur_full_name" from="pur_full_name"/>
+						<columnsMapping to="tmp_score" from="tmp_score"/>
+						<columnsMapping to="tmp_expl" from="tmp_expl"/>
+						<columnsMapping to="std_first_name" from="std_first_name"/>
+						<columnsMapping to="std_last_name" from="std_last_name"/>
+						<columnsMapping to="std_title" from="std_title"/>
+						<columnsMapping to="pat_full_name" from="pat_full_name"/>
+						<columnsMapping to="pur_first_name_orig" from="pur_first_name_orig"/>
+						<columnsMapping to="pur_last_name_orig" from="pur_last_name_orig"/>
+						<columnsMapping to="sco_full_name" from="sco_full_name"/>
+						<columnsMapping to="exp_full_name" from="exp_full_name"/>
+						<columnsMapping to="pur_full_name_DQ_status" from="pur_full_name_DQ_status"/>
+						<columnsMapping to="pur_full_name_status" from="pur_full_name_status"/>
+						<columnsMapping to="pur_initial" from="pur_initial"/>
+						<columnsMapping to="pur_middle_first_name" from="pur_middle_first_name"/>
+						<columnsMapping to="pur_middle_last_name" from="pur_middle_last_name"/>
+						<columnsMapping to="pur_last_name_prefix" from="pur_last_name_prefix"/>
+						<columnsMapping to="trash_full_name" from="trash_full_name"/>
+					</columnMappings>
+				</mappingEndPoint>
+			</mappings>
+			<parameters/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</component>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Component" endpoint="out"/>
+		<target step="Results" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Results) --><step id="Results" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/11.02 Names_out.csv" encoding="UTF8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="," dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+			<comm:comment>(DataWriter)</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (names) --><step id="names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_full_name" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names" endpoint="out"/>
+		<target step="Add columns" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,49,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to parse names using a pre-defined component.</modelComment>
+
+
+
+<modelComment bounds="192,168,217,48" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">This plan uses Component 11.01 Names 
+cleansing names in the batch mode. </modelComment>
+
+</purity-config>

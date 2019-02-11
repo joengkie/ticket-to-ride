@@ -1,0 +1,1 @@
+For every record, sent request and received response xml are saved in separated files.

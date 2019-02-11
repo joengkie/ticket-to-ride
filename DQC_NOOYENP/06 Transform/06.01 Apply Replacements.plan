@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Apply Replacements) --><step id="Apply Replacements" className="com.ataccama.dqc.tasks.clean.ApplyReplacementsAlgorithm" disabled="false" mode="NORMAL">
+		<properties replacementsFileName="../data/ext/lkp/ca_street_apply_replacements.lkp" preserveUnsupportedChars="true" onlyFullReplacement="false" in="src_street" out="pur_street">
+			<scorer explanationColumn="exp">
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="AR_CHANGED" explain="true" key="AR_CHANGED"/>
+					<scoringEntry score="0" explainAs="AR_MORE" explain="true" key="AR_MORE"/>
+					<scoringEntry score="0" explainAs="AR_MULTI" explain="true" key="AR_MULTI"/>
+					<scoringEntry score="0" explainAs="AR_NULL" explain="true" key="AR_NULL"/>
+				</scoringEntries>
+			</scorer>
+			<tokenizer whiteSpaceDefinition="[:white:]">
+				<types>
+					<tokenType tokenStartCharacters="[:letter:]" tokenCharacters="[:letter:]"/>
+					<tokenType tokenStartCharacters="[:digit:]" tokenCharacters="[:digit:]"/>
+				</types>
+			</tokenizer>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Apply Replacements" endpoint="out"/>
+		<target step="Results - AR" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Lookup Reader) --><step id="Lookup Reader" className="com.ataccama.dqc.tasks.io.lookup.read.LookupReader" disabled="false" mode="NORMAL">
+		<properties fileName="../data/ext/lkp/ca_street_apply_replacements.lkp" keyColumnName="input">
+			<columns>
+				<columnRef name="replacement"/>
+			</columns>
+		</properties>
+		<visual-constraints bounds="48,432,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Lookup Reader" endpoint="out"/>
+		<target step="Show replacements" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Results - AR) --><step id="Results - AR" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.01 Apply_Replacements.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_street"/>
+				<textWriterColumn name="pur_street"/>
+				<textWriterColumn name="exp"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Show replacements) --><step id="Show replacements" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.01 Replacements.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="input"/>
+				<textWriterColumn name="replacement"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="216,432,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (addresses) --><step id="addresses" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/addresses.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_street" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_city" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_province" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_zip" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="pur_street" type="STRING"/>
+				<shadowColumnDef name="exp" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="addresses" endpoint="out"/>
+		<target step="Apply Replacements" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,506,73" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to replace typing errors in the input text file using the Apply Replacements step.
+The Apply Replacements step uses a lookup file, which defines replacements.</modelComment>
+
+
+
+<modelComment bounds="240,144,193,74" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">Example:
+     input: Leslei street
+     replacement: Leslei -&gt; Leslie
+     output: Leslie street</modelComment>
+
+
+
+<modelComment bounds="48,312,448,118" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">Important:
+Longer replacements are applied first. 
+Notice we want to do the following replacements:
+         st -&gt; street
+         St John -&gt; Saint John     (not street John)
+Look at the result of St John St (which really exists in the city St John, NB).</modelComment>
+
+</purity-config>

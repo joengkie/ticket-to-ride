@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Group Assigner) --><step id="Group Assigner" className="com.ataccama.dqc.tasks.flow.GroupAssigner" disabled="false" mode="NORMAL">
+		<properties recordDescriptorColumn="rd_full_name">
+			<assignments>
+				<assignment expression="maximum(length(pur_one_word),pur_one_word)" column="pur_longest_name"/>
+				<assignment expression="count()" column="pur_count_names"/>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Group Assigner" endpoint="out"/>
+		<target step="Results - GA" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Results - GA) --><step id="Results - GA" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/06.08 Group_Assigner.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_full_name"/>
+				<textWriterColumn name="pur_one_word"/>
+				<textWriterColumn name="pur_longest_name"/>
+				<textWriterColumn name="pur_count_names"/>
+				<textWriterColumn name="rd_full_name"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Splitter) --><step id="Splitter" className="com.ataccama.dqc.tasks.text.Splitter" disabled="false" mode="NORMAL">
+		<properties allSentenceColumn="src_full_name" recordDescriptorColumn="rd_full_name" oneWordColumn="pur_one_word">
+			<separatorConfig includeSeparators="" lowerCaseLetters="false" excludeSeparators="." digits="false" upperCaseLetters="false"/>
+			<comm:comment>The default separator is everything except letters and digits. We excluded the dot (.) because we want &quot;Ph.D.&quot; and other abbreviations and contractions to stay as one word.</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Splitter" endpoint="out"/>
+		<target step="Group Assigner" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (names) --><step id="names" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_full_name" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="pur_one_word" type="STRING"/>
+				<shadowColumnDef name="rd_full_name" type="STRING"/>
+				<shadowColumnDef name="pur_longest_name" type="STRING"/>
+				<shadowColumnDef name="pur_count_names" type="INTEGER"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,32,32" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names" endpoint="out"/>
+		<target step="Splitter" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,409,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to calculate aggregated expressions on groups 
+generated by a multiplicative step, using the Group Assigner step.</modelComment>
+
+
+
+<modelComment bounds="192,144,337,73" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Splitter step is explained in tutorial 06.06 Splitter.
+
+In short, it splits a row with a string into its
+constituent words, putting one word per row.</modelComment>
+
+
+
+<modelComment bounds="192,240,313,86" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">Group assigner uses the Record Descriptor column
+to:
+- select the longest word from each full name
+- count the number of words in each full name</modelComment>
+
+</purity-config>

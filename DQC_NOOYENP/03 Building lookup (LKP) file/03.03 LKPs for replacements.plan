@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Build ca_street_replacements) --><step id="Build ca_street_replacements" className="com.ataccama.dqc.tasks.builders.LookupBuilder" disabled="false" mode="NORMAL">
+		<properties approximativeIndex="false" compressed="false" duplicities="FIRST" bestDistanceIndex="false" fileName="../data/out/03.03 ca_street_replacements.lkp" bidirectApproximativeIndex="false" key="value">
+			<additionalColumns>
+				<columnExprDef name="replacement"/>
+			</additionalColumns>
+			<matchingValue doRemoveRepeatedChars="false" doSqueezeWS="true" supportedCharacters="[:letter:]" doRemoveDia="false" doUpperCase="true"/>
+			<userMetadata>
+				<items/>
+			</userMetadata>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Build ca_street_replacements" endpoint="rejected"/>
+		<target step="Trash" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Trash) --><step id="Trash" className="com.ataccama.dqc.tasks.io.Trash" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (ca_street_replacements) --><step id="ca_street_replacements" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/ext/src/ca_street_replacements.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="value" type="STRING" ignore="false"/>
+				<textReaderColumn name="replacement" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="ca_street_replacements" endpoint="out"/>
+		<target step="Build ca_street_replacements" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="264,120,265,166" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">The LKP file should contain two columns 
+- the first for the initial value (key) and 
+the second for the replacement.
+
+The settings from the Matching Value 
+section are later applied to the input data.
+
+Notice the supported characters 
+in the Lookup Builder &gt; Matching Value.</modelComment>
+
+
+
+<modelComment bounds="24,24,481,61" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to create an LKP file with replacements for the
+Apply Replacements step which is used for correcting typing errors.</modelComment>
+
+</purity-config>

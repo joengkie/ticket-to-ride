@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Call service) --><step id="Call service" className="com.ataccama.dqc.tasks.io.soap.SoapCallStep" disabled="false" mode="NORMAL">
+		<properties delayBetweenRequestsMs="100" rootXpath="/soapenv:Envelope/soapenv:Body/ns1:checkVatResponse" timeoutMs="1000" debugRequestFileName="debug/request_%.xml" soapAction="checkVat" encoding="utf-8" debugResponseFileName="debug/response_%.xml" soapVersion="SOAP_1_1" wsdlUrl="http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl" errorColumn="error" url="test">
+			<attributes>
+				<responseColumnBinding name="out_country_code" xpath="ns1:countryCode"/>
+				<responseColumnBinding name="out_vat_number" xpath="ns1:vatNumber"/>
+				<responseColumnBinding name="out_request_date" xpath="ns1:requestDate"/>
+				<responseColumnBinding name="out_valid" xpath="ns1:valid"/>
+				<responseColumnBinding name="out_name" xpath="ns1:name"/>
+				<responseColumnBinding name="out_address" xpath="ns1:address"/>
+			</attributes>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<inputTemplate>&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
+&lt;soapenv:Envelope xmlns:ns1=&quot;urn:ec.europa.eu:taxud:vies:services:checkVat:types&quot; xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+	&lt;soapenv:Body&gt;
+		&lt;ns1:checkVat&gt;
+			&lt;ns1:countryCode&gt;{in_country_code}&lt;/ns1:countryCode&gt;
+			&lt;ns1:vatNumber&gt;{in_vat_number}&lt;/ns1:vatNumber&gt;
+		&lt;/ns1:checkVat&gt;
+	&lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</inputTemplate>
+			<namespaces>
+				<prefixNamespacePair prefix="ns1" namespace="urn:ec.europa.eu:taxud:vies:services:checkVat:types"/>
+				<prefixNamespacePair prefix="soapenv" namespace="http://schemas.xmlsoap.org/soap/envelope/"/>
+			</namespaces>
+			<scorer explanationColumn="exp_vat" scoreColumn="src_vat">
+				<scoringEntries>
+					<scoringEntry score="1000000" explainAs="WLA_TIMEOUT" explain="true" key="WLA_TIMEOUT"/>
+					<scoringEntry score="10000000" explainAs="WLA_UNKNOWN_RESPONSE" explain="true" key="WLA_UNKNOWN_RESPONSE"/>
+					<scoringEntry score="100000" explainAs="WLA_SOAP_FAULT" explain="true" key="WLA_SOAP_FAULT"/>
+					<scoringEntry score="10000" explainAs="WLA_NO_ROOT_EL_FOUND" explain="true" key="WLA_NO_ROOT_EL_FOUND"/>
+				</scoringEntries>
+			</scorer>
+		</properties>
+		<visual-constraints bounds="504,288,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Call service" endpoint="out"/>
+		<target step="VAT_out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (VAT_in) --><step id="VAT_in" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/VAT_in.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="">
+			<columns>
+				<textReaderColumn name="in_country_code" type="STRING" ignore="false"/>
+				<textReaderColumn name="in_vat_number" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="out_country_code" type="STRING"/>
+				<shadowColumnDef name="out_vat_number" type="INTEGER"/>
+				<shadowColumnDef name="out_request_date" type="STRING"/>
+				<shadowColumnDef name="out_valid" type="STRING"/>
+				<shadowColumnDef name="out_name" type="STRING"/>
+				<shadowColumnDef name="out_address" type="STRING"/>
+				<shadowColumnDef name="error" type="STRING"/>
+				<shadowColumnDef name="src_vat" type="INTEGER"/>
+				<shadowColumnDef name="exp_vat" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="504,120,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="VAT_in" endpoint="out"/>
+		<target step="Call service" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (VAT_out) --><step id="VAT_out" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/12.01 VAT_out.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="504,480,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<modelComment bounds="96,288,393,86" borderColor="183,183,0" backgroundColor="255,255,180" foregroundColor="51,51,51">A service for finding the owner of the input VAT number 
+in the specified country.
+
+http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl</modelComment>
+
+
+
+<modelComment bounds="24,24,529,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to call external service, which takes VAT number and country code
+and returns information about its owner.</modelComment>
+
+
+
+<modelComment bounds="672,120,733,217" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Steps for setting up a Soap Call:
+
+1. Paste the service wsdl url or file path and click &quot;Update...&quot;
+2. Choose the service name (if multiple exist)
+3. In the next step, you can add or remove optional elements in the request xml template and invoke a call with sample data
+4. In the next step, the same is possible with elements for the response xml
+5. In the final step of the wizard, you can map output columns with response elements by using xpath expressions
+    This can be done manually or by selecting the needed elements and clicking &quot;Add mapping&quot;
+   
+In the request template, use &quot;{in_column}&quot; notation (without the quotation marks) for dynamic value setting.
+
+E.g. &lt;ns1:countryCode&gt;{in_country_code}&lt;/ns1:countryCode&gt;</modelComment>
+
+
+
+<modelComment bounds="672,24,743,86" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Restrictions of a (Simple) Soap Call:
+
+A soap Call does not return multiple response records – only the first one.
+In addition, complicated requests with multiple entities/hierarchies cannot be created, and such responses cannot be mapped.</modelComment>
+
+
+
+<modelComment bounds="672,360,655,230" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Additional information
+
+In the development phase, set parameters &quot;Debug Request File Name&quot; and/or &quot;Debug Response File Name&quot;
+in the Advanced tab. The files specified in these parameters will store request xml sent (with concrete values) 
+and response returned.
+
+Use the &#39;%&#39; sign in the filename for storing multiple request and response debug files.
+
+For authorized services, fill the username and password.
+
+If you don not want to overload the external service, set some delay between requests.
+
+If you expect a highly complicated service, increase the timeout value.</modelComment>
+
+
+
+<modelComment bounds="24,144,473,134" borderColor="255,0,0" backgroundColor="128,255,128" foregroundColor="40,0,0">To make this plan work, you need to:
+
+- create new server by clicking &quot;New Server&quot; on the &quot;Servers&quot; node
+- fill in a name and the 
+   http://ec.europa.eu/taxation_customs/vies/services/checkVatService url
+- paste the name of the new server into the Soap Call step as &quot;Url&quot; parameter
+</modelComment>
+
+</purity-config>

@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Approximative) --><step id="Approximative" className="com.ataccama.dqc.tasks.clean.LookupAlgorithm" disabled="false" mode="NORMAL">
+		<properties maxDifference="3" tableFileName="../data/ext/lkp/ca_province_names_approx.lkp" prefix="false" foreignKeyColumn="src_province">
+			<columns>
+				<columnAssign expression="lookup.province_code " name="std_province"/>
+				<columnAssign expression="lookup.key " name="key value"/>
+				<columnAssign expression="lookup.english " name="english"/>
+				<columnAssign expression="lookup.french" name="french"/>
+			</columns>
+			<scorer explanationColumn="exp">
+				<scoringEntries>
+					<scoringEntry score="0" explainAs="PROVINCE_NULL" explain="true" key="LKP_NULL_ID"/>
+					<scoringEntry score="0" explainAs="PROVINCE_NOT_FOUND" explain="true" key="LKP_NOT_FOUND"/>
+					<scoringEntry score="0" explainAs="PROVINCE_FOUND" explain="true" key="LKP_FOUND"/>
+					<scoringEntry score="0" explainAs="PROVINCE_FOUND_DUPL" explain="true" key="LKP_FOUND_DUPL"/>
+					<scoringEntry score="0" explainAs="PROVINCE_APPROX_USED" explain="true" key="LKP_APPROX_USED"/>
+				</scoringEntries>
+			</scorer>
+			<selectBestMatch>
+				<orderBy expression="levenshtein(src_province,lookup.key) " orderDescending="false" nullsFirst="false"/>
+			</selectBestMatch>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Approximative" endpoint="out"/>
+		<target step="Provinces found" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Filter short codes) --><step id="Filter short codes" className="com.ataccama.dqc.tasks.conditions.Filter" disabled="false" mode="NORMAL">
+		<properties condition="length(src_province)&gt;2"/>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Filter short codes" endpoint="out"/>
+		<target step="Approximative" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Provinces found) --><step id="Provinces found" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.03 Provinces_found_approximatively.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_province"/>
+				<textWriterColumn name="key value"/>
+				<textWriterColumn name="std_province"/>
+				<textWriterColumn name="exp"/>
+				<textWriterColumn name="english"/>
+				<textWriterColumn name="french"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,312,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (addresses) --><step id="addresses" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/addresses.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_street" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_city" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_province" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_zip" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="exp" type="STRING"/>
+				<shadowColumnDef name="std_province" type="STRING"/>
+				<shadowColumnDef name="key value" type="STRING"/>
+				<shadowColumnDef name="english" type="STRING"/>
+				<shadowColumnDef name="french" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="addresses" endpoint="out"/>
+		<target step="Filter short codes" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="216,168,251,217" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Provinces may be written as: 
+BC                        (standard code)
+British Columbia   (full name)
+Britisch Columbia  (misspelling)
+
+The plan skips two-digit codes from the source 
+(using Filter). Only longer names will
+be standardized. 
+
+=======================
+Note: The plan discards part of the input for 
+demonstration purposes.</modelComment>
+
+
+
+<modelComment bounds="24,24,457,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use an approximative LKP file for standardizing province codes.</modelComment>
+
+
+
+<modelComment bounds="216,120,337,38" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,0,0">The Filter step is explained in tutorial 05.03 Filter.</modelComment>
+
+</purity-config>

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<webServiceTest>
+  <wsdl>http://localhost:8888/clr_names?wsdl</wsdl>
+  <request>&lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&gt;
+&lt;soapenv:Envelope xmlns:ns1=&quot;www.examples.com/namespace&quot; xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+	&lt;soapenv:Body&gt;
+		&lt;ns1:clr_names&gt;
+			&lt;!-- Fill in the name to be cleansed --&gt;
+			&lt;ns1:src_full_name&gt;John W. Smith&lt;/ns1:src_full_name&gt;
+		&lt;/ns1:clr_names&gt;
+	&lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</request>
+  <soapAction>clr_names</soapAction>
+  <type>SOAP11</type>
+  <url>http://localhost:8888/clr_names</url>
+</webServiceTest>

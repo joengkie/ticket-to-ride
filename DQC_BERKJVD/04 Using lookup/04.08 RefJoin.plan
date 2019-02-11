@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Ref Join) --><step id="Ref Join" className="com.ataccama.dqc.rjoin.RefJoin" disabled="false" mode="NORMAL">
+		<properties outputUnmatched="true" maximumMatched="3">
+			<keyColumnMappings>
+				<keyColumnMapping expression="src_name" column="name"/>
+			</keyColumnMappings>
+			<matchKeys>
+				<matchKey selectLimit="50" keyName="key">
+					<comm:comment>name</comm:comment>
+				</matchKey>
+			</matchKeys>
+			<matchingMeasures>
+				<matchingMeasure expression="ref.name = src_name and ref.gender = src_gender and ref.animal = src_animal" name="name_gender_animal"/>
+				<matchingMeasure expression="ref.name = src_name and ref.gender = src_gender" name="name_gender"/>
+			</matchingMeasures>
+			<matchingRules>
+				<refMatchRule expression="measures.name_gender_animal" name="match all"/>
+				<refMatchRule expression="measures.name_gender and src_animal is null" name="match name, gender and empty animal"/>
+				<refMatchRule expression="measures.name_gender and levenshtein(ref.animal,src_animal)&lt;=2" name="match name, gender and partly animal"/>
+			</matchingRules>
+			<outputColumns>
+				<refOutputColumn expression="src_name" name="src_name"/>
+				<refOutputColumn expression="src_gender" name="src_gender"/>
+				<refOutputColumn expression="src_animal" name="src_animal"/>
+				<refOutputColumn expression="ref.name" name="std_name" noMatchExpression="src_name"/>
+				<refOutputColumn expression="ref.gender" name="std_gender" noMatchExpression="&quot;not find&quot;"/>
+				<refOutputColumn expression="ref.animal" name="std_animal" noMatchExpression="&quot;not find&quot;"/>
+				<refOutputColumn expression="ref.name" name="ref_name"/>
+				<refOutputColumn expression="ref.gender" name="ref_gender"/>
+				<refOutputColumn expression="ref.animal" name="ref_animal"/>
+				<refOutputColumn expression="measures.name_gender_animal" name="name_gender_animal"/>
+				<refOutputColumn expression="measures.name_gender" name="name_gender"/>
+				<refOutputColumn expression="result.pk" name="pk"/>
+				<refOutputColumn expression="result.ruleName" name="ruleName"/>
+				<refOutputColumn expression="result.count" name="count"/>
+				<refOutputColumn expression="result.order" name="order"/>
+				<refOutputColumn expression="result.recordDescriptor" name="recordDescriptor"/>
+			</outputColumns>
+			<refSource fileName="../data/ext/lkp/animals_RefJoin.lkp" class="com.ataccama.dqc.rjoin.LookupRefSource"/>
+			<selectionRules>
+				<orderBy expression="ref.animal" orderDescending="true" nullsFirst="false" locale="cs_CZ"/>
+			</selectionRules>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Ref Join" endpoint="out"/>
+		<target step="RefJoin out" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (RefJoin out) --><step id="RefJoin out" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/04.08 RefJoin_out.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="true" compression="NONE" stringQualifierEscape="&quot;">
+			<columns/>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,240,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (animals_RJ) --><step id="animals_RJ" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/animals_RJ.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_animal" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="animals_RJ" endpoint="out"/>
+		<target step="Ref Join" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,553,70" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to use the RefJoin (Referential Join) step to match records
+with reference data. (Similarly to the Lookup step but using more complex search criteria.)</modelComment>
+
+
+
+<modelComment bounds="216,96,372,289" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">The RefJoin step uses only reference data
+generated in the Referential Join Builder step. 
+
+RefJoin step can use reference data from:
+ - Flow Ref Source
+ - Lookup Ref Source
+ - File Ref Source
+ - Db Ref Source
+
+This example demonstrates usage with a Lookup Ref Source.
+
+The plan generating the LKP file is described
+in tutorial 03.05 LKP for RefJoin.
+
+The plan processes the input file with animals,
+matches animals to reference data, and fills
+in missing or incomplete information.</modelComment>
+
+</purity-config>

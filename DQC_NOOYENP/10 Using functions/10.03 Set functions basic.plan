@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config xmlns:comm="http://www.ataccama.com/purity/comment" version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Classic functions output) --><step id="Classic functions output" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/10.03 Set_functions_basic-Classic.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_full_name_1"/>
+				<textWriterColumn name="src_full_name_2"/>
+				<textWriterColumn name="intersection"/>
+				<textWriterColumn name="symmetricDifference"/>
+				<textWriterColumn name="intersection_rel"/>
+				<textWriterColumn name="symmetricDifference_rel"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,408,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (Classical functions) --><step id="Classical functions" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="set.intersection(src_full_name_1, src_full_name_2)" column="intersection">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="set.symmetricDifference(src_full_name_1, src_full_name_2)" column="symmetricDifference">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="intersection_rel">
+					<expression>intersection / max (
+   wordCount(src_full_name_1),
+   wordCount(src_full_name_2)
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+					<comm:comment>relative variant for intersection - value of intersection divided by set size</comm:comment>
+				</assignment>
+				<assignment column="symmetricDifference_rel">
+					<expression>symmetricDifference / (
+  wordCount(src_full_name_1) + wordCount(src_full_name_2)
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+					<comm:comment>relative variant for symmetricDifference - value of symmetricDifference divided by set size</comm:comment>
+				</assignment>
+			</assignments>
+			<comm:comment>- set.intersection(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a” -&gt; 2,   “a b”, “b c” -&gt; 1,   “a b”, “x y” -&gt; 0
+- set.symmetricDifference(set1, set2, separator=“ ”, multiset=false)
+	“a b”, “b a”  -&gt; 0,   “a b”, “b c”  -&gt; 2,   “a b”, “x y”  -&gt; 4
+- set.difference(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a”  -&gt; 0,   “a b”, “b c”  -&gt; 1,   “a b”, “x y”  -&gt; 2
+- set.union(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a”  -&gt; 2,   “a b”, “b c”  -&gt; 3,   “a b”, “x y”  -&gt; 4</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,336,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Classical functions" endpoint="out"/>
+		<target step="Classic functions output" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Multiplicator) --><step id="Multiplicator" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="Classical functions" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="Result functions" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="23,216"/>
+				<point location="23,480"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Result functions) --><step id="Result functions" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="set.intersectionResult(src_full_name_1, src_full_name_2)" column="intersection_result">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment expression="set.symmetricDifferenceResult(src_full_name_1, src_full_name_2)" column="symmetricDifference_result">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+			<comm:comment>- set.intersectionResult(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a” -&gt; “a b”,   “a b”, “b c” -&gt; “b”,   “a b”, “x y” -&gt; “”
+- set.symmetricDifferenceResult(set1, set2, separator=“ ”, multiset=false)
+	“a b”, “b a”  -&gt; “”,   “a b”, “b c”  -&gt; “a c”,   “a b”, “x y”  -&gt; “a b x y”
+- set.differenceResult(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a”  -&gt; “”,   “a b”, “b c”  -&gt; “a”,   “a b”, “x y”  -&gt; “a b”
+- set.unionResult(set1, set2, separator=“ ”, multiset = false)
+	“a b”, “b a”  -&gt; “a b”,   “a b”, “b c”  -&gt; “a b c”,   “a b”, “x y”  -&gt; “a b x y”</comm:comment>
+		</properties>
+		<visual-constraints bounds="48,480,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Result functions" endpoint="out"/>
+		<target step="Result functions output" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Result functions output) --><step id="Result functions output" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/10.03 Set_functions_basic-Result.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_full_name_1"/>
+				<textWriterColumn name="src_full_name_2"/>
+				<textWriterColumn name="intersection_result"/>
+				<textWriterColumn name="symmetricDifference_result"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="48,552,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (names_for_set_functions) --><step id="names_for_set_functions" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names_for_set_functions.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_first_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_name_2" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_full_name_1" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_full_name_2" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="intersection" type="INTEGER"/>
+				<shadowColumnDef name="symmetricDifference" type="INTEGER"/>
+				<shadowColumnDef name="intersection_rel" type="FLOAT"/>
+				<shadowColumnDef name="symmetricDifference_rel" type="FLOAT"/>
+				<shadowColumnDef name="intersection_result" type="STRING"/>
+				<shadowColumnDef name="symmetricDifference_result" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names_for_set_functions" endpoint="out"/>
+		<target step="Multiplicator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,0,553,54" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to demonstrate basic set functions. </modelComment>
+
+
+
+<modelComment bounds="240,326,193,86" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">- set.intersection()
+- set.symmetricDifference(e)
+- set.difference()
+- set.union()</modelComment>
+
+
+
+<modelComment bounds="240,48,368,278" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Set functions
+- originally for working with individual words in names
+- important for unification
+- useful in transformations and data preparation
+- Set = string with a defined separator (usually a space)
+- “A B C” == {A, B, C}
+- set functions return the size
+
+Result Set functions
+- return the actual result set
+- obtain their names by adding “Result” to the function name
+    - intersection -&gt; intersectionResult
+- parameters are the same, return type is STRING
+
+The result set is encoded the same way as the original
+ (i.e., the same separator is used).</modelComment>
+
+
+
+<modelComment bounds="240,480,193,74" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">- set.intersectionResult()
+- set.symmetricDifferenceResult()
+- set.differenceResult()
+- set.unionResult()</modelComment>
+
+</purity-config>

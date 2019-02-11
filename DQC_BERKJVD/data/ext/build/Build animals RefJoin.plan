@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Ref Join Builder) --><step id="Ref Join Builder" className="com.ataccama.dqc.rjoin.RefJoinBuilder" disabled="false" mode="NORMAL">
+		<properties mapAllColumns="true" incremental="false">
+			<columns/>
+			<keys>
+				<sourceKey name="key" noEmptyComponent="false">
+					<components>
+						<unionKeyComponent expression="name" behaveAsSet="true" separator=" "/>
+					</components>
+				</sourceKey>
+			</keys>
+			<refSource fileName="../lkp/animals_RefJoin.lkp" class="com.ataccama.dqc.rjoin.LookupRefSource"/>
+		</properties>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+
+
+
+<!-- (animals) --><step id="animals" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../src/animals.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="name" type="STRING" ignore="false"/>
+				<textReaderColumn name="gender" type="STRING" ignore="false"/>
+				<textReaderColumn name="animal" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns/>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="animals" endpoint="out"/>
+		<target step="Ref Join Builder" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="264,96,218,49" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="0,43,0">generate an LKP file with information
+about animals</modelComment>
+
+
+
+<modelComment bounds="24,24,457,50" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to generate an LKP file for use in RefJoin.</modelComment>
+
+</purity-config>

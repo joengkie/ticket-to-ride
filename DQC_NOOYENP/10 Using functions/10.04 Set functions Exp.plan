@@ -1,0 +1,305 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<purity-config version="10.6.2.ga-2017-03-03">
+	<references/>
+	<component-mappings>
+		<propertyMappings/>
+	</component-mappings>
+
+<!-- (Filter and Capital) --><step id="Filter and Capital" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/10.04 Set_functions_Exp-Filter_and_Capital.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_name"/>
+				<textWriterColumn name="mycap_name"/>
+				<textWriterColumn name="filtered_name"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="288,384,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (FuzzyIntersection) --><step id="FuzzyIntersection" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment expression="intersection(src_name, src_name_2)" column="plain_intersection">
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="fuzzy_intersection">
+					<expression>set.intersectionExp(src_name, src_name_2, &quot; &quot;, true,
+(x, y) {
+   editDistance(x, y) &lt;= 1
+}
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+				<assignment column="fuzzy_intersection_initials">
+					<expression>set.intersectionExp(src_name, src_name_2, &quot; &quot;, true,
+(x, y) {
+   editDistance(x, y) &lt;= 1
+   or 
+     substr(x, 0, 1) = substr(y, 0, 1)
+     and
+     (
+       length(x) = 1 and length(y) &gt; 1
+       or 
+       length(x) &gt; 1 and length(y) = 1
+     )
+}
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="96,264,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="FuzzyIntersection" endpoint="out"/>
+		<target step="Intersection" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Intersection) --><step id="Intersection" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/10.04 Set_functions_Exp-Intersection.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_name"/>
+				<textWriterColumn name="src_name_2"/>
+				<textWriterColumn name="plain_intersection"/>
+				<textWriterColumn name="fuzzy_intersection"/>
+				<textWriterColumn name="fuzzy_intersection_initials"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,264,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (Multiplicator) --><step id="Multiplicator" className="com.ataccama.dqc.tasks.flow.Multiplicator" disabled="false" mode="NORMAL">
+		<properties/>
+		<visual-constraints bounds="48,168,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="FuzzyIntersection" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,288"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="NamePairs" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,528"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="Multiplicator" endpoint="out"/>
+		<target step="ReverseCapitalize" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints>
+				<point location="71,408"/>
+			</bendpoints>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (Name Pairs) --><step id="Name Pairs" className="com.ataccama.dqc.tasks.io.text.write.TextFileWriter" disabled="false" mode="NORMAL">
+		<properties useStringQualifierOnAllColumns="false" stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" generateMetadata="true" fileName="../data/out/10.04 Set_functions_Exp-NamePairs.csv" encoding="UTF-8" writeHeader="true" writeAllColumns="false" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textWriterColumn name="src_first_name"/>
+				<textWriterColumn name="src_last_name"/>
+				<textWriterColumn name="name_pairs"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yyyy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yyyy-MM-dd"/>
+		</properties>
+		<visual-constraints bounds="192,504,-1,-1" layout="horizontal"/>
+	</step>
+
+
+
+<!-- (NameFilter) --><step id="NameFilter" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment column="filtered_name">
+					<expression>set.filterExp(src_name, &quot; &quot;, 
+   (x) { length(x) &gt; 1 }
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="192,384,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="NameFilter" endpoint="out"/>
+		<target step="Filter and Capital" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (NamePairs) --><step id="NamePairs" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment column="name_pairs">
+					<expression>set.mapExp(src_first_name, &quot; &quot;, (fn) {
+  set.mapExp(src_last_name, &quot; &quot;, (ln) {
+      fn + &quot;_&quot; + ln
+  })
+})</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="96,504,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="NamePairs" endpoint="out"/>
+		<target step="Name Pairs" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (ReverseCapitalize) --><step id="ReverseCapitalize" className="com.ataccama.dqc.tasks.expressions.ColumnAssigner" disabled="false" mode="NORMAL">
+		<properties>
+			<assignments>
+				<assignment column="mycap_name">
+					<expression>set.mapExp(src_name, &quot; &quot;, 
+   (x) { lower(substr(x, 0, 1)) + upper(substr(x, 1)) }
+)</expression>
+					<scorer>
+						<scoringEntries>
+							<scoringEntry score="0" explainAs="CA_CHANGED" explain="false" key="CA_CHANGED"/>
+						</scoringEntries>
+					</scorer>
+				</assignment>
+			</assignments>
+		</properties>
+		<visual-constraints bounds="96,384,-1,-1" layout="horizontal"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="ReverseCapitalize" endpoint="out"/>
+		<target step="NameFilter" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<!-- (names_for_set_functions) --><step id="names_for_set_functions" className="com.ataccama.dqc.tasks.io.text.read.TextFileReader" disabled="false" mode="NORMAL">
+		<properties stringQualifier="&quot;" lineSeparator="\r\n" fieldSeparator=";" lineMaxReadLength="65536" numberOfLinesInHeader="1" fileName="../data/in/names_for_set_functions.csv" encoding="UTF-8" numberOfLinesInFooter="0" compression="NONE" stringQualifierEscape="&quot;">
+			<columns>
+				<textReaderColumn name="src_first_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_last_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_name" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_name_2" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_full_name_1" type="STRING" ignore="false"/>
+				<textReaderColumn name="src_full_name_2" type="STRING" ignore="false"/>
+			</columns>
+			<dataFormatParameters trueValue="true" falseValue="false" thousandsSeparator="" dateFormatLocale="en_US" dateTimeFormat="yy-MM-dd HH:mm:ss" decimalSeparator="." dayFormat="yy-MM-dd"/>
+			<errorHandlingStrategy rejectFileName="rejected.txt">
+				<errorInstructions>
+					<errorInstruction putToLog="true" errorType="EXTRA_DATA" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="LONG_LINE" dataStrategy="STOP" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="PROCESSING_ERROR" dataStrategy="STOP" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="INVALID_DATE" dataStrategy="READ_POSSIBLE" putToReject="false"/>
+					<errorInstruction putToLog="true" errorType="SHORT_LINE" dataStrategy="READ_POSSIBLE" putToReject="true"/>
+					<errorInstruction putToLog="true" errorType="UNPARSABLE_FIELD" dataStrategy="NULL_VALUE" putToReject="false"/>
+				</errorInstructions>
+			</errorHandlingStrategy>
+			<shadowColumns>
+				<shadowColumnDef name="plain_intersection" type="INTEGER"/>
+				<shadowColumnDef name="fuzzy_intersection" type="INTEGER"/>
+				<shadowColumnDef name="fuzzy_intersection_initials" type="INTEGER"/>
+				<shadowColumnDef name="mycap_name" type="STRING"/>
+				<shadowColumnDef name="filtered_name" type="STRING"/>
+				<shadowColumnDef name="name_pairs" type="STRING"/>
+			</shadowColumns>
+		</properties>
+		<visual-constraints bounds="48,96,-1,-1" layout="vertical"/>
+	</step>
+	<connection className="com.ataccama.dqc.model.elements.connections.StandardFlowConnection" disabled="false">
+		<source step="names_for_set_functions" endpoint="out"/>
+		<target step="Multiplicator" endpoint="in"/>
+		<visual-constraints>
+			<bendpoints/>
+		</visual-constraints>
+	</connection>
+
+
+
+<modelComment bounds="24,24,673,49" borderColor="255,255,255" backgroundColor="128,255,128" foregroundColor="40,0,0">Plan Goals
+The goal of this plan is to demonstrate Exp set functions. </modelComment>
+
+
+
+<modelComment bounds="288,264,457,86" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">set.intersectionExp ()
+- using set.intersectionExp, computes the number of common words where:
+    - 1 typo per word is allowed (editDistance &lt;= 1)
+    - Initials match “long names”: J = John</modelComment>
+
+
+
+<modelComment bounds="408,360,265,121" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">set.mapExp()
+- using mapExp, perform a “reverse capitalization” 
+on each word: john SMITH -&gt; jOHN sMITH
+
+set.filterExp()
+- using filterExp, remove initials, 
+leaving only words with &gt;=2 letters</modelComment>
+
+
+
+<modelComment bounds="288,504,385,74" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">set.mapExp()
+- using two nested mapExp functions, set of pairs {FN}_{LN} where FN and
+LN cycle through all names in the two columns
+John Peter, Smith -&gt; John_Smith Peter_Smith</modelComment>
+
+
+
+<modelComment bounds="264,96,529,150" borderColor="255,255,255" backgroundColor="219,219,219" foregroundColor="64,0,64">Exp Set functions
+- Exp suffix is added to the function name: 
+    - intersection -&gt; intersectionExp
+- the last argument is an “anonymous function” / “lambda-function”
+-  the function is regular part of the expression and can access other variables / columns:
+   e.g.1. set.intersectionExp(set1, set2, (x, y) { x = y })
+   e.g.2. $x := ... ; 
+             set.intersectionExp(set1, set2, (x, y) { x = y or x = $x})</modelComment>
+
+</purity-config>
